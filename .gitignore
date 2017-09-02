@@ -1,4 +1,5 @@
 node_modules/*
 uploads/*
 .idea
-storage/logs/*
+storage/logs/*.log
+config/database.json
