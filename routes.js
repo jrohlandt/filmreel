@@ -7,6 +7,7 @@ module.exports = (app) => {
   // app.post('/admin/webinars/store', ensureAuthenticated, require('./controllers/admin/WebinarsController').store)
 
   app.get('/', require('./app/controllers/frontend/HomeController').index)
+  app.get('/demo/flex', require('./app/controllers/frontend/demo/FlexController').index)
 
   // function ensureAuthenticated (req, res, next) {
   //   if (req.isAuthenticated()) {
