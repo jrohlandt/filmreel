@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    h1 Register
+
+    form(method='post', action='/auth/register', enctype='multipart/form-data')
+        .form-group
+            label Name
+            input(name='name', type='text', placeholder='Enter name' value= formData.name ? formData.name : '')
+        .form-group
+            label Email
+            input(name='email', type='text', placeholder='Enter email' value= formData.email ? formData.email : '')
+        .form-group
+            label Password
+            input(name='password', type='password', placeholder='Choose password')
+        .form-group
+            label Confirm password
+            input(name='password_confirm', type='password', placeholder='Confirm password')
+        .form-group
+            label Profile Image
+            input(name='image', type='file')
+        
+        .form-group        
+            input(name='submit' type='submit' value='Register')

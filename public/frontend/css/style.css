@@ -1,0 +1,20 @@
+li.active {
+    background: dodgerblue;
+}
+
+.form-group {
+    width: 100%;
+    padding: 1em;
+}
+
+div.notifications {
+    border: dodgerblue thin solid;
+}
+
+li.alert {
+    padding: 1em;
+}
+
+li.alert.danger {
+    color:red;
+}

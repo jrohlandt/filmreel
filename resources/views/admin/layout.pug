@@ -1,0 +1,30 @@
+doctype html
+html
+    head
+        title=(title ? title : 'WS')
+        link(rel='stylesheet', href='/admin/css/style.css')
+    body
+        ul
+            li(class=(title == 'Members' ? 'active' : ''))
+                a(href='/') Members
+            if !user
+                li
+                    a(href='/auth/register') Register
+                li
+                    a(href='/auth/login') Sign in
+            if user
+                li
+                    a(href='/auth/logout') Sign out
+                li
+                    a(href='/admin/webinars') Webinars
+
+        .notifications
+            if errors
+                ul
+                    each error in errors
+                        li.alert.danger #{error.msg}
+            != messages()
+        .content
+            block content
+
+        script(src='/vendor/jquery.js')
