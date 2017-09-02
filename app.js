@@ -154,8 +154,8 @@ app.get('*', (req, res, next) => {
   next()
 })
 
-require('./app/routes.js')(app)
-app.use('/auth', require('./app/controllers/auth/AuthController'))
+require('./routes.js')(app)
+// app.use('/auth', require('./app/controllers/auth/AuthController'))
 
 // 404 Not Found
 app.get('*', (req, res) => {
