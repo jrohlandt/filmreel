@@ -1,60 +1,5 @@
-// const Webinar = require('../../models').webinar
 const logger = require('../../helpers/logger.js')
-const mysql = require('mysql')
-
-function getWebinars () {
-  return new Promise(function (resolve, reject) {
-    var connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'homestead',
-      password: 'secret',
-      database: 'node_mysql',
-    })
-
-    connection.connect(function (err) {
-      if (err) {
-        return reject('error connecting: ' + err.stack)
-      }
-      console.log('connected as id ' + connection.threadId)
-    })
-
-    connection.query(`SELECT * FROM webinars`, function (error, results, fields) {
-      if (error) {
-        return reject(error)
-      }
-      resolve(results)
-    })
-
-    connection.end()
-  })
-}
-
-function storeWebinar (data) {
-  return new Promise(function (resolve, reject) {
-    var connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'homestead',
-      password: 'secret',
-      database: 'node_mysql',
-    })
-
-    connection.connect(function (err) {
-      if (err) {
-        return reject('error connecting: ' + err.stack)
-      }
-      console.log('connected as id ' + connection.threadId)
-    })
-
-    connection.query('INSERT INTO webinars SET ?', data, function (error, results, fields) {
-      if (error) {
-        return reject(error)
-      }
-      resolve(results)
-    })
-
-    connection.end()
-  })
-}
+const webinar = require('../../models/webinar')
 
 module.exports = {
 
@@ -65,8 +10,12 @@ module.exports = {
 */
   index (req, res) {
     async function getData () {
-      var webinars = getWebinars()
-      return { title: 'Webinars', webinars: await webinars }
+      var webinars = webinar.getAll()
+      return {
+        title: 'Webinars',
+        webinars: await webinars
+        // categories: await categories.getAll()
+      }
     }
 
     return getData()
@@ -95,9 +44,10 @@ module.exports = {
 |-------------------------------------------------------------------------------
 */
   store (req, res) {
-    console.log('posting ', req.body, req.user.id)
-    var data = { title: req.body.title, user_id: req.user.id }
-    return storeWebinar(data)
+    // console.log('posting ', req.body, req.user.id)
+    var data = { title: req.body.title, user_id: 1 }
+    // var data = { title: req.body.title, user_id: req.user.id }
+    return webinar.store(data)
       .then(result => {
         req.flash('success', 'Webinar has been created!')
         return res.redirect('/admin/webinars')

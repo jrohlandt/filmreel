@@ -1,15 +1,46 @@
-'use strict';
+var db = require('../../db.js')
 
-module.exports = function(sequelize, DataTypes) {
-  var webinar = sequelize.define('webinar', {
-    title: DataTypes.STRING,
-    user_id: DataTypes.INTEGER,
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
+// exports.create = function (userId, text, done) {
+//   var values = [userId, text, new Date().toISOString()]
+//
+//   db.get().query('INSERT INTO comments (user_id, text, date) VALUES(?, ?, ?)', values, function (err, result) {
+//     if (err) return done(err)
+//     done(null, result.insertId)
+//   })
+// }
+
+// exports.getAll = function (done) {
+//   db.get().query('SELECT * FROM webinars', function (err, rows) {
+//     if (err) return done(err)
+//     done(null, rows)
+//   })
+// }
+
+exports.getAllByUser = function (userId, done) {
+  db.get().query('SELECT * FROM comments WHERE user_id = ?', userId, function (err, rows) {
+    if (err) return done(err)
+    done(null, rows)
+  })
+}
+
+exports.getAll = function () {
+  return new Promise(function (resolve, reject) {
+    db.get().query('SELECT * FROM webinars', function (error, results, fields) {
+      if (error) {
+        return reject(error)
       }
-    }
-  });
-  return webinar;
-};
+      resolve(results)
+    })
+  })
+}
+
+exports.store = function (data) {
+  return new Promise(function (resolve, reject) {
+    db.get().query('INSERT INTO webinars SET ?', data, function (error, results, fields) {
+      if (error) {
+        return reject(error)
+      }
+      resolve(results)
+    })
+  })
+}
