@@ -1,28 +1,16 @@
-// 'use strict';
-//
-// module.exports = function(sequelize, DataTypes) {
-//   var user = sequelize.define('user', {
-//     name: DataTypes.STRING,
-//     email: DataTypes.STRING,
-//     password: DataTypes.STRING,
-//     profileImage: DataTypes.STRING,
-//   }, {
-//     classMethods: {
-//       associate: function(models) {
-//         // associations can be defined here
-//       }
-//     }
-//   });
-//   return user;
-// };
-
 var db = require('../../db.js')
+const bcrypt = require('bcrypt-nodejs')
 
 exports.findByEmail = function (email) {
   return new Promise((resolve, reject) => {
-    db.get().query('SELECT * FROM webinars WHERE email = ? LIMIT 1', email, (error, results, fields) => {
+    var sql = 'SELECT * FROM users WHERE email = ? LIMIT 1'
+    db.get().query(sql, email, (error, results, fields) => {
       if (error) {
         reject(error)
+      }
+
+      if (results[0] === undefined) {
+        resolve(false)
       }
       resolve(results[0])
     })
@@ -31,7 +19,8 @@ exports.findByEmail = function (email) {
 
 exports.findById = function (id) {
   return new Promise((resolve, reject) => {
-    db.get().query('SELECT * FROM webinars WHERE id = ? LIMIT 1', id, (error, results, fields) => {
+    var sql = 'SELECT * FROM users WHERE id = ? LIMIT 1'
+    db.get().query(sql, id, (error, results, fields) => {
       if (error) {
         reject(error)
       }
@@ -42,14 +31,34 @@ exports.findById = function (id) {
 
 exports.checkPassword = (p1, p2) => {
   return new Promise((resolve, reject) => {
-    bcrypt.compare(password, user.password, function (error, isMatch) {
+    bcrypt.compare(p1, p2, function (error, isMatch) {
       if (error) {
-          reject(error)
+        reject(error)
+      }
+      isMatch ? resolve(true) : resolve(false)
+    })
+  })
+}
+
+exports.create = function (data) {
+  return new Promise(function (resolve, reject) {
+    db.get().query('INSERT INTO users SET ?', data, function (error, results, fields) {
+      if (error) {
+        reject(error)
+      }
+      resolve(results)
+    })
+  })
+}
+
+exports.hashPassword = (password) => {
+  return new Promise((resolve, reject) => {
+    bcrypt.hash(password, null, null, (error, hash) => {
+      if (error) {
+        reject(error)
       }
 
-      if (!isMatch) {
-          console.log('password is incorrect')
-          return done(null, false, {message: 'Invalid Password'})
-      }
+      resolve(hash)
+    })
   })
 }
