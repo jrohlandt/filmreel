@@ -1,5 +1,6 @@
 var db = require('../../db.js')
 const bcrypt = require('bcrypt-nodejs')
+const fillable = ['name', 'email', 'password', 'profileImage']
 
 exports.findByEmail = function (email) {
   return new Promise((resolve, reject) => {
@@ -29,20 +30,24 @@ exports.findById = function (id) {
   })
 }
 
-exports.checkPassword = (p1, p2) => {
-  return new Promise((resolve, reject) => {
-    bcrypt.compare(p1, p2, function (error, isMatch) {
-      if (error) {
-        reject(error)
-      }
-      isMatch ? resolve(true) : resolve(false)
-    })
-  })
+// ----------------------------------------------------------------------------
+//  GET FILLABLE FIELDS
+// ----------------------------------------------------------------------------
+function getFillableFields (input) {
+  var fillableData = {}
+  for (var i = 0; i < fillable.length; i++) {
+    if (input[fillable[i]]) {
+      fillableData[fillable[i]] = input[fillable[i]].trim()
+    }
+  }
+
+  return fillableData
 }
 
 exports.create = function (data) {
   return new Promise(function (resolve, reject) {
-    db.get().query('INSERT INTO users SET ?', data, function (error, results, fields) {
+    var fillableData = getFillableFields(data)
+    db.get().query('INSERT INTO users SET ?', fillableData, function (error, results, fields) {
       if (error) {
         reject(error)
       }
@@ -59,6 +64,17 @@ exports.hashPassword = (password) => {
       }
 
       resolve(hash)
+    })
+  })
+}
+
+exports.checkPassword = (p1, p2) => {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(p1, p2, function (error, isMatch) {
+      if (error) {
+        reject(error)
+      }
+      isMatch ? resolve(true) : resolve(false)
     })
   })
 }

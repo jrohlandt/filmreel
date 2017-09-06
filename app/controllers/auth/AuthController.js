@@ -11,8 +11,6 @@ const email = require('../../helpers/email')
 
 var userModel = require('../../models/user')
 
-const fillable = ['name', 'email', 'password', 'profileImage']
-
 // ----------------------------------------------------------------------------
 //  REGISTRATION FORM
 // ----------------------------------------------------------------------------
@@ -60,20 +58,6 @@ function validationFailed (req) {
 }
 
 // ----------------------------------------------------------------------------
-//  GET FILLABLE FIELDS
-// ----------------------------------------------------------------------------
-function getFillableFields (req) {
-  var formData = {}
-  for (var i = 0; i < fillable.length; i++) {
-    if (req.body[fillable[i]]) {
-      formData[fillable[i]] = req.body[fillable[i]].trim()
-    }
-  }
-
-  return formData
-}
-
-// ----------------------------------------------------------------------------
 //  REGISTER USER
 // ----------------------------------------------------------------------------
 router.post('/register', singleImageUpload, (req, res, next) => {
@@ -84,29 +68,29 @@ router.post('/register', singleImageUpload, (req, res, next) => {
     })
   }
 
-  var formData = getFillableFields(req)
+  var input = req.body
 
   // check if email address is in use
-  userModel.findByEmail(formData.email)
+  userModel.findByEmail(input.email)
     .then(user => {
       if (user) {
         return res.render('frontend/register', {
-          errors: [{msg: `The email address '${formData.email}' is already in use`}],
+          errors: [{msg: `The email address '${input.email}' is already in use`}],
           formData: req.body
         })
       } else {
       // save image
         // formData.profileImage = '/images/no_image.png' // saveImage(req, 'image', '/images/no_image.png')
 
-        userModel.hashPassword(formData.password)
+        userModel.hashPassword(input.password)
           .then(hash => {
-            formData.password = hash
+            input.password = hash
 
-            userModel.create(formData)
+            userModel.create(input)
               .then((user) => {
                 // welcome email
                 // TODO fix email send crashes app
-                email.send(formData, req.body.password)
+                email.send(input, req.body.password)
 
                 req.flash('success', 'You are now registered, please sign in to continue')
                 res.redirect('/')
@@ -120,7 +104,7 @@ router.post('/register', singleImageUpload, (req, res, next) => {
             console.log(error)
             return res.render('frontend/register', {
               errors: [{msg: 'You could not be registered'}],
-              formData: formData
+              formData: req.body
             })
           })
       }
