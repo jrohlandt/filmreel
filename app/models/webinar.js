@@ -27,7 +27,7 @@ exports.getAll = function () {
   return new Promise(function (resolve, reject) {
     db.get().query('SELECT * FROM webinars', function (error, results, fields) {
       if (error) {
-        return reject(error)
+        reject(error)
       }
       resolve(results)
     })
@@ -38,7 +38,7 @@ exports.store = function (data) {
   return new Promise(function (resolve, reject) {
     db.get().query('INSERT INTO webinars SET ?', data, function (error, results, fields) {
       if (error) {
-        return reject(error)
+        reject(error)
       }
       resolve(results)
     })

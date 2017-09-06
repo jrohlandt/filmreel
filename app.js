@@ -166,7 +166,7 @@ db.connect(db.MODE_PRODUCTION, function (err) {
     })
 
     require('./routes.js')(app)
-    // app.use('/auth', require('./app/controllers/auth/AuthController'))
+    app.use('/auth', require('./app/controllers/auth/AuthController'))
 
     // 404 Not Found
     app.get('*', (req, res) => {
