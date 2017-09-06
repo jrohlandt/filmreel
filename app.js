@@ -67,9 +67,7 @@ db.connect(db.MODE_PRODUCTION, function (err) {
     */
 
     //
-    var dbConfig = require('./config/database').config
-    //
-    console.log(dbConfig.port)
+    var dbConfig = require('./config/database').production
 
     var sessionStoreOptions = {
       host: dbConfig.host,
