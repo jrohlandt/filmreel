@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-const multer = require('multer')
-const singleImageUpload = multer({ dest: './uploads' }).single('image')
+// const multer = require('multer')
+// const singleImageUpload = multer({ dest: './uploads' }).single('image')
 
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
@@ -42,20 +42,20 @@ var userModel = require('../../models/user')
 // ----------------------------------------------------------------------------
 //  FORM VALIDATION RULES
 // ----------------------------------------------------------------------------
-function formValidation (req) {
-  req.checkBody('name', 'Name field should be between 2 and 20 characters').notEmpty()
-  req.checkBody('email', 'Please enter a valid email address').isEmail()
-  req.checkBody('password', 'Please enter a password').notEmpty()
-  req.checkBody('password_confirm', 'Passwords do not match').equals(req.body.password)
-}
-
-// ----------------------------------------------------------------------------
-//  RUN VALIDATION
-// ----------------------------------------------------------------------------
-function validationFailed (req) {
-  formValidation(req)
-  return req.validationErrors() ? true : false
-}
+// function formValidation (req) {
+//   req.checkBody('name', 'Name field should be between 2 and 20 characters').notEmpty()
+//   req.checkBody('email', 'Please enter a valid email address').isEmail()
+//   req.checkBody('password', 'Please enter a password').notEmpty()
+//   req.checkBody('password_confirm', 'Passwords do not match').equals(req.body.password)
+// }
+//
+// // ----------------------------------------------------------------------------
+// //  RUN VALIDATION
+// // ----------------------------------------------------------------------------
+// function validationFailed (req) {
+//   formValidation(req)
+//   return req.validationErrors() ? true : false
+// }
 
 // ----------------------------------------------------------------------------
 //  REGISTER USER
@@ -150,39 +150,68 @@ passport.deserializeUser((id, done) => {
 //  PASSPORT LOCAL STRATEGY
 // ----------------------------------------------------------------------------
 passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, function (email, password, done) {
-  console.log('local strategy', email)
 
   userModel.findByEmail(email)
     .then(user => {
       if (!user) {
-        console.log('unkown user', user)
-        done(null, false)
+        console.log('unkown user', user);
+        done(null, false);
       } else {
         userModel.checkPassword(password, user.password)
           .then(isMatch => {
-            isMatch === true ? done(null, user) : done(null, false)
+            isMatch === true ? done(null, user) : done(null, false);
           })
           .catch(error => {
-            console.log(error)
-            done(null, false)
-          })
+            console.log(error);
+            done(null, false);
+          });
       }
     })
     .catch(error => {
-      console.log(error)
+      console.log(error);
     })
 }))
 
 // ----------------------------------------------------------------------------
 //  LOG USER IN
 // ----------------------------------------------------------------------------
-router.post('/login',
-  passport.authenticate('local', {failureRedirect: '/auth/login'}), (req, res) => {
-    console.log('Authentication success!')
-    req.flash('success', 'You are logged in')
-    res.redirect('/')
-  }
-)
+// router.post('/login', passport.authenticate('local', {failureRedirect: '/auth/login', failureFlash: 'Invalid username or password.'}), (req, res) => {
+//   // If this function gets called, authentication was successful.
+//   // `req.user` contains the authenticated user
+//   console.log('Authentication success!')
+//   req.flash('success', 'You are logged in')
+//   res.redirect('/')
+// })
+
+  router.post('/login', function(req, res, next) {
+
+    req.checkBody('email', 'Please enter a valid email address').isEmail()
+    req.checkBody('password', 'Please enter a password').notEmpty()
+    
+    if (req.validationErrors()) {
+      req.flash('success', 'You have been logged outa here')
+      return res.redirect('/auth/login'); 
+    } else {
+      passport.authenticate('local', function(err, user, info) {
+  
+        if (err) {
+          return next(err);
+        }
+  
+        if (!user) { 
+          req.flash('success', 'You have logged out')
+          return res.redirect('/auth/login'); 
+        }
+  
+        req.logIn(user, function(err) {
+          if (err) { 
+            return next(err); 
+          }
+          return res.redirect('/');
+        });
+      })(req, res, next);
+    }
+  });
 
 // ----------------------------------------------------------------------------
 //  LOGOUT
