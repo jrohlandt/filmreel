@@ -7,37 +7,37 @@ const singleImageUpload = multer({ dest: './uploads' }).single('image')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 
-const email = require('../../helpers/email')
+// const email = require('../../helpers/email')
 
 var userModel = require('../../models/user')
 
 // ----------------------------------------------------------------------------
 //  REGISTRATION FORM
 // ----------------------------------------------------------------------------
-router.get('/register', (req, res, next) => {
-  res.render('frontend/register', { title: 'Register', formData: {} })
-})
+// router.get('/register', (req, res, next) => {
+//   res.render('frontend/register', { title: 'Register', formData: {} })
+// })
 
 // ----------------------------------------------------------------------------
 //  SAVE IMAGE
 // ----------------------------------------------------------------------------
-function saveImage (req, fieldname, defaultImagePath) {
-  if (!req.file || req.file.fieldname !== fieldname) {
-    return defaultImagePath
-  }
-
-  var mimeType = req.file.mimetype
-  var mimeTypes = {
-    'image/jpeg': '.jpg',
-    'image/png': '.png',
-    'image/gif': '.gif'
-  }
-  var extension = mimeTypes.hasOwnProperty(mimeType) ? mimeTypes[mimeType] : false
-
-  if (extension) {
-    return req.file.filename + extension
-  }
-}
+// function saveImage (req, fieldname, defaultImagePath) {
+//   if (!req.file || req.file.fieldname !== fieldname) {
+//     return defaultImagePath
+//   }
+//
+//   var mimeType = req.file.mimetype
+//   var mimeTypes = {
+//     'image/jpeg': '.jpg',
+//     'image/png': '.png',
+//     'image/gif': '.gif'
+//   }
+//   var extension = mimeTypes.hasOwnProperty(mimeType) ? mimeTypes[mimeType] : false
+//
+//   if (extension) {
+//     return req.file.filename + extension
+//   }
+// }
 
 // ----------------------------------------------------------------------------
 //  FORM VALIDATION RULES
@@ -60,60 +60,60 @@ function validationFailed (req) {
 // ----------------------------------------------------------------------------
 //  REGISTER USER
 // ----------------------------------------------------------------------------
-router.post('/register', singleImageUpload, (req, res, next) => {
-  if (validationFailed(req)) {
-    return res.render('frontend/register', {
-      errors: req.validationErrors(),
-      formData: req.body
-    })
-  }
-
-  var input = req.body
-
-  // check if email address is in use
-  userModel.findByEmail(input.email)
-    .then(user => {
-      if (user) {
-        return res.render('frontend/register', {
-          errors: [{msg: `The email address '${input.email}' is already in use`}],
-          formData: req.body
-        })
-      } else {
-      // save image
-        // formData.profileImage = '/images/no_image.png' // saveImage(req, 'image', '/images/no_image.png')
-
-        userModel.hashPassword(input.password)
-          .then(hash => {
-            input.password = hash
-
-            userModel.create(input)
-              .then((user) => {
-                // welcome email
-                // TODO fix email send crashes app
-                email.send(input, req.body.password)
-
-                req.flash('success', 'You are now registered, please sign in to continue')
-                res.redirect('/')
-              })
-              .catch(error => {
-                console.log(error)
-                res.status(500)
-              })
-          })
-          .catch(error => {
-            console.log(error)
-            return res.render('frontend/register', {
-              errors: [{msg: 'You could not be registered'}],
-              formData: req.body
-            })
-          })
-      }
-    })
-    .catch((error) => {
-      console.log(error)
-      res.status(500)
-    })
-})
+// router.post('/register', singleImageUpload, (req, res, next) => {
+//   if (validationFailed(req)) {
+//     return res.render('frontend/register', {
+//       errors: req.validationErrors(),
+//       formData: req.body
+//     })
+//   }
+//
+//   var input = req.body
+//
+//   // check if email address is in use
+//   userModel.findByEmail(input.email)
+//     .then(user => {
+//       if (user) {
+//         return res.render('frontend/register', {
+//           errors: [{msg: `The email address '${input.email}' is already in use`}],
+//           formData: req.body
+//         })
+//       } else {
+//       // save image
+//         // formData.profileImage = '/images/no_image.png' // saveImage(req, 'image', '/images/no_image.png')
+//
+//         userModel.hashPassword(input.password)
+//           .then(hash => {
+//             input.password = hash
+//
+//             userModel.create(input)
+//               .then((user) => {
+//                 // welcome email
+//                 // TODO fix email send crashes app
+//                 email.send(input, req.body.password)
+//
+//                 req.flash('success', 'You are now registered, please sign in to continue')
+//                 res.redirect('/')
+//               })
+//               .catch(error => {
+//                 console.log(error)
+//                 res.status(500)
+//               })
+//           })
+//           .catch(error => {
+//             console.log(error)
+//             return res.render('frontend/register', {
+//               errors: [{msg: 'You could not be registered'}],
+//               formData: req.body
+//             })
+//           })
+//       }
+//     })
+//     .catch((error) => {
+//       console.log(error)
+//       res.status(500)
+//     })
+// })
 
 // ----------------------------------------------------------------------------
 //  LOGIN FORM
