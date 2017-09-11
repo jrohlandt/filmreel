@@ -149,7 +149,7 @@ db.connect(db.MODE_PRODUCTION, function (err) {
     */
     app.use(flash())
     app.use(function (req, res, next) {
-      res.locals.messages = flashMessages(req, res)
+	  res.locals.messages = flashMessages(req, res)
       next()
     })
 
@@ -165,7 +165,7 @@ db.connect(db.MODE_PRODUCTION, function (err) {
       next()
     })
 
-    require('./routes.js')(app)
+    require('./routes.js')(app);
     app.use('/auth', require('./app/controllers/auth/AuthController'))
 
     // 404 Not Found

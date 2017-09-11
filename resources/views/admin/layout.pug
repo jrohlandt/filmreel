@@ -1,28 +1,32 @@
 doctype html
 html
-  head
-    title=(title ? title : 'WS')
-    link(rel='stylesheet', href='/admin/css/style.css')
-  body
-    ul
-      li(class=(title == 'Members' ? 'active' : ''))
-          a(href='/') Members
-      if !user
-        li
-          a(href='/auth/register') Register
-        li
-          a(href='/auth/login') Sign in
-      if user
-        li
-          a(href='/auth/logout') Sign out
-        li
-          a(href='/admin/webinars') Webinars
+head
+	title=(title ? title : 'WS')
+	link(rel='stylesheet', href='/admin/css/style.css')
+body
+	ul
+		li(class=(title == 'Members' ? 'active' : ''))
+			a(href='/') Members
+		if !user
+			li
+				a(href='/auth/register') Register
+			li
+				a(href='/auth/login') Sign in
+		if user
+			li
+				a(href='/auth/logout') Sign out
+			li
+				a(href='/admin/webinars') Webinars
 
-    .notifications
-      if errors
-        ul
-          each error in errors
-            li.alert.danger #{error.msg}
-      != messages()
-    .content
-      block content
+	.notifications
+		if error
+			.alert-error #{error}
+		if validation_errors
+			ul
+				each verror in validation_errors
+					li.alert.danger #{verror.msg}
+		if success
+			.alert-success #{success}
+
+	.content
+		block content

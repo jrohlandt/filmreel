@@ -1,0 +1,9 @@
+extends ../layout.pug
+
+block content
+  h1 Films
+
+  if films
+    ul
+      each film in films
+        li= film.title

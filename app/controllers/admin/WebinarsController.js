@@ -23,7 +23,7 @@ module.exports = {
 				res.render('admin/webinars/index', data);
 			})
 			.catch(error => {
-				logger.logError(error);
+				logger.logError(error); // todo change logger appendsync function to use async version
 				req.flash('error', 'a Server error occurred, please contact support.');
 				return res.redirect('back');
 			});

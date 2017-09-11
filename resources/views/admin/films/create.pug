@@ -1,0 +1,10 @@
+extends ../layout.pug
+
+block content
+	h1= title
+	form(method='POST' action='/admin/films/store')
+		label(for='title')  Title:
+		input#title(type='text', name='title' value= formData.title ? formData.title : '')
+		label Year:
+		input(type='text', name='year' value= formData.year ? formData.year : '')
+		button(type='submit') Create
