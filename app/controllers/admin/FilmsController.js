@@ -1,26 +1,6 @@
 const logger = require('../../helpers/logger.js');
 const film = require('../../models/film');
 
-var validate = function(req, res) {
-	req.checkBody('title', 'Please enter a title').notEmpty();
-	req.checkBody('year', 'Please specify the year the film was released').notEmpty();
-
-	if (req.validationErrors()) {
-		return res.render('admin/films/create', { errors: req.validationErrors(), formData: req.body });
-	}
-};
-
-// function formValidation (req) {
-//   
-// }
-//
-// // ----------------------------------------------------------------------------
-// //  RUN VALIDATION
-// // ----------------------------------------------------------------------------
-// function validationFailed (req) {
-//   formValidation(req)
-//   return req.validationErrors() ? true : false
-// }
 module.exports = {
 
 	/*
