@@ -1,5 +1,7 @@
 const logger = require('../../helpers/logger.js');
 const film = require('../../models/film');
+const fs = require('fs');
+const path = require('path');
 
 module.exports = {
 
@@ -36,7 +38,7 @@ module.exports = {
 	|-------------------------------------------------------------------------------
 	*/
 	create (req, res) {
-		
+
 		var formData = req.flash('formData');
 		// console.log('formdata', formData);
 		var data = { 
@@ -56,6 +58,18 @@ module.exports = {
 	|-------------------------------------------------------------------------------
 	*/
 	store (req, res) {
+		
+		// check if image is valid and generate image path and file name
+		var posterImagePath = false;
+		if (req.files['poster_image']) {
+			let file = req.files['poster_image'];
+			let ext = getValidExtension(file.mimetype);
+			if (ext) {
+				// todo if ext is false then add ivalid image error to validation errors
+				posterImagePath = path.join('/', 'images', 'posters', file.uuid + ext);
+				var imgDestination = path.join(appRoot, 'public', 'images', 'posters', file.uuid + ext);
+			}
+		}
 
 		// validate form data
 		req.checkBody('title', 'Please enter a title').notEmpty();
@@ -71,20 +85,50 @@ module.exports = {
 		// format data
 		var data = { 
 			title: req.body.title, 
-			year: req.body.year
+			year: req.body.year,
+			poster_image: posterImagePath ? posterImagePath : path.join('images', 'posters', 'placeholder.png')
 		};
 		
 		// store in database
 		return film.create(data)
 			.then(result => {
+				if (posterImagePath) {
+					moveFile(req.files['poster_image'].file, imgDestination);
+				}
 				req.flash('success', 'film has been created!');
 				return res.redirect('/admin/films');
 			})
 			.catch(error => {
-				console.log(error);
+				// console.log(error);
 				req.flash('error', 'The film could not be saved.');
 				return res.redirect('back');
 			});
 	}
-
 };
+
+function getValidExtension(mimetype) {
+	var mimeTypes = {
+		'image/jpeg': '.jpg',
+		'image/png': '.png',
+		'image/gif': '.gif'
+	};
+	
+	return mimeTypes.hasOwnProperty(mimetype) ? mimeTypes[mimetype] : false;
+}
+
+function moveFile(src, dest) {
+	
+	  let readStream = fs.createReadStream(src);
+	
+	  readStream.once('error', (err) => {
+		console.log(err);
+	  });
+	
+	  readStream.once('end', () => {
+		fs.unlinkSync(src);
+		// todo also remove the dir fs.rmdir()
+		console.log('done copying');
+	  });
+	
+	  readStream.pipe(fs.createWriteStream(dest));
+	}

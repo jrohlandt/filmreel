@@ -1,3 +1,6 @@
+// const multer = require('multer');
+// const singleImageUpload = multer({ dest: './uploads' }).single('image');
+
 module.exports = (app) => {
     // Welcome
   // app.get('/', ensureAuthenticated, (req, res) => res.render('frontend/home', {title: 'Members'}))
@@ -10,8 +13,7 @@ module.exports = (app) => {
 	app.get('/admin/films', ensureAuthenticated, require('./app/controllers/admin/FilmsController').index);
 	app.get('/admin/films/create', ensureAuthenticated, require('./app/controllers/admin/FilmsController').create);
 	app.post('/admin/films/store', ensureAuthenticated, require('./app/controllers/admin/FilmsController').store);
-  // app.get('/admin/webinars/create', ensureAuthenticated, require('./controllers/admin/WebinarsController').create)
-  // app.post('/admin/webinars/store', ensureAuthenticated, require('./controllers/admin/WebinarsController').store)
+
 
 	app.get('/', require('./app/controllers/frontend/HomeController').index);
 	app.get('/demo/flex', require('./app/controllers/frontend/demo/FlexController').index);

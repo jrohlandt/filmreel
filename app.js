@@ -8,10 +8,12 @@ const session = require('express-session')
 const MySQLStore = require('express-mysql-session')(session)
 const passport = require('passport')
 const bodyParser = require('body-parser')
+var bb = require('express-busboy');
 const flash = require('connect-flash')
 const expressValidator = require('express-validator')
 const flashMessages = require('express-messages')
 const db = require('./db')
+global.appRoot = path.resolve(__dirname);
 /*
 |-------------------------------------------------------------------------------
 | APP
@@ -20,11 +22,22 @@ const db = require('./db')
 
 // Connect to MySQL on start
 db.connect(db.MODE_PRODUCTION, function (err) {
-  if (err) {
-    console.log('Unable to connect to MySQL.')
-    process.exit(1)
-  } else {
-    const app = express()
+	if (err) {
+		console.log('Unable to connect to MySQL.');
+		process.exit(1);
+	} else {
+		const app = express();
+
+	// busboy allow files in form data
+	bb.extend(app, {
+		upload: true, 
+		path: './uploads/tmp',
+		mimeTypeLimit: [
+			'image/jpeg',
+			'image/png',
+			'image/gif'
+		]
+	});
 
     global.appRoot = path.resolve(__dirname)
     // Log requests to the console.
