@@ -1,5 +1,6 @@
 node_modules/*
 uploads/*
+public/images/posters/*
 .idea
 storage/logs/*.log
 config/database.json
