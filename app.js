@@ -28,16 +28,7 @@ db.connect(db.MODE_PRODUCTION, function (err) {
 	} else {
 		const app = express();
 
-	// busboy allow files in form data
-	bb.extend(app, {
-		upload: true, 
-		path: './uploads/tmp',
-		mimeTypeLimit: [
-			'image/jpeg',
-			'image/png',
-			'image/gif'
-		]
-	});
+
 
     global.appRoot = path.resolve(__dirname)
     // Log requests to the console.
@@ -65,6 +56,19 @@ db.connect(db.MODE_PRODUCTION, function (err) {
     */
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: false }))
+	
+	// busboy allow files in form data
+	// place after bodyParser
+	// todo research if busboy can replace bodyParser
+	bb.extend(app, {
+		upload: true, 
+		path: './uploads/tmp',
+		mimeTypeLimit: [
+			'image/jpeg',
+			'image/png',
+			'image/gif'
+		]
+	});
 
     /*
     |-------------------------------------------------------------------------------
@@ -72,7 +76,7 @@ db.connect(db.MODE_PRODUCTION, function (err) {
     |-------------------------------------------------------------------------------
     */
     app.use(express.static(path.join(__dirname, '/public')))
-
+	
     /*
     |-------------------------------------------------------------------------------
     | SESSIONS
@@ -121,7 +125,7 @@ db.connect(db.MODE_PRODUCTION, function (err) {
     |-------------------------------------------------------------------------------
     | PASSPORT
     |-------------------------------------------------------------------------------
-    */
+	*/
     app.use(passport.initialize())
     app.use(passport.session())
 
@@ -147,7 +151,7 @@ db.connect(db.MODE_PRODUCTION, function (err) {
         }
       }
     }))
-
+	
     /*
     |-------------------------------------------------------------------------------
     | COOKIEPARSER
@@ -184,7 +188,8 @@ db.connect(db.MODE_PRODUCTION, function (err) {
     // 404 Not Found
     app.get('*', (req, res) => {
       res.status(404).send({ message: 'Sorry, the page you are looking for cannot be found.' })
-    })
+	})
+	
 
     // catch 404 and forward to error handler
     app.use(function (req, res, next) {
