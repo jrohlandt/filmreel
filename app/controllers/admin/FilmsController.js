@@ -59,13 +59,18 @@ module.exports = {
 	*/
 	store (req, res) {
 		
+		var validationErrors = [];
+
 		// check if image is valid and generate image path and file name
 		var posterImagePath = false;
 		if (req.files['poster_image']) {
 			let file = req.files['poster_image'];
 			let ext = getValidExtension(file.mimetype);
-			if (ext) {
+			if (!ext) {
+				console.log('invalid ext');
 				// todo if ext is false then add ivalid image error to validation errors
+				validationErrors = validationErrors.concat( { param: 'poster_image', msg: 'Poster image is invalid'} );
+			} else {
 				posterImagePath = path.join('/', 'images', 'posters', file.uuid + ext);
 				var imgDestination = path.join(appRoot, 'public', 'images', 'posters', file.uuid + ext);
 			}
@@ -74,10 +79,13 @@ module.exports = {
 		// validate form data
 		req.checkBody('title', 'Please enter a title').notEmpty();
 		req.checkBody('year', 'Please specify the year the film was released').notEmpty();
-	
 		if (req.validationErrors()) {
+			validationErrors = validationErrors.concat(req.validationErrors());	
+		}
+		console.log('valer: ', validationErrors);
+		if (validationErrors.length > 0) {
 			req.flash('error', 'Please fix the following errors:');
-			req.flash('validation_errors', req.validationErrors());
+			req.flash('validation_errors', validationErrors);
 			req.flash('formData', req.body);
 			return res.redirect('back');
 		}
