@@ -1,0 +1,13 @@
+extends ../layout.pug
+
+block content
+	h1 Films
+
+	if films
+		ul
+			each film in films
+				li
+					div
+						img(src= film.poster_image width='200')
+						p= film.title
+						small= film.year

@@ -4,6 +4,10 @@ module.exports = (app) => {
 	// app.get('/', ensureAuthenticated, (req, res) => res.render('frontend/home', {title: 'Members'}))
 	// app.get('/admin', ensureAuthenticated, require('./controllers/admin/DashboardController').index)
 
+	// Frontend routes
+	app.get('/films', require('./app/controllers/frontend/FilmsController').index);
+
+	// Admin routes
 	app.get('/admin/films', ensureAuthenticated, require('./app/controllers/admin/FilmsController').index);
 	app.get('/admin/films/create', ensureAuthenticated, require('./app/controllers/admin/FilmsController').create);
 	app.post('/admin/films/store', ensureAuthenticated, require('./app/controllers/admin/FilmsController').store);
