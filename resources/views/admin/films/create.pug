@@ -7,6 +7,10 @@ block content
 		input#title(type='text', name='title' value= formData.title ? formData.title : '')
 		label Year:
 		input(type='text', name='year' value= formData.year ? formData.year : '')
+		label Category:
+		select(name='category')
+			each category in categories
+				option(value= category.id) #{category.name}
 		label Poster Image:
 		input(type='file', name='poster_image')
 		button(type='submit') Create

@@ -1,5 +1,6 @@
 const logger = require('../../helpers/logger.js');
 const film = require('../../models/film');
+const categoryModel = require('../../models/category');
 const fs = require('fs');
 const path = require('path');
 
@@ -16,8 +17,8 @@ module.exports = {
 			return {
 				title: 'Films',
 				films: await films,
-				success: req.flash('success')
-				// categories: await categories.getAll()
+				success: req.flash('success'),
+				categories: await categoryModel.getAll()
 			};
 		}
 
@@ -39,17 +40,28 @@ module.exports = {
 	*/
 	create (req, res) {
 
-		var formData = req.flash('formData');
-		// console.log('formdata', formData);
-		var data = { 
-			title: 'Film - Create', 
-			formData: formData.length > 0 ? formData[0] : {},
-			error: req.flash('error'),
-			validation_errors: req.flash('validation_errors'),
-			success: req.flash('success')
-		};
+		async function getData() {
+			var formData = req.flash('formData');
+			return { 
+				title: 'Film - Create', 
+				formData: formData.length > 0 ? formData[0] : {},
+				error: req.flash('error'),
+				validation_errors: req.flash('validation_errors'),
+				success: req.flash('success'),
+				categories: await categoryModel.getAll()
+			};
+		}
+		
 		// console.log('data: ', data);
-		return res.render('admin/films/create', data);
+		return getData()
+			.then(data => {
+				return res.render('admin/films/create', data);
+			})
+			.catch(error => {
+				logger.logError(error); // todo change logger appendsync function to use async version
+				req.flash('error', 'a Server error occurred, please contact support.');
+				return res.redirect('back');
+			})
 	},
 
 	/*
@@ -100,11 +112,15 @@ module.exports = {
 		// store in database
 		return film.create(data)
 			.then(result => {
-				if (posterImagePath) {
-					moveFile(req.files['poster_image'].file, imgDestination);
-				}
-				req.flash('success', 'film has been created!');
-				return res.redirect('/admin/films');
+				console.log('film result', result);
+				return film.addCategory(result.insertId, req.body.category)
+					.then(result => {
+						if (posterImagePath) {
+							moveFile(req.files['poster_image'].file, imgDestination);
+						}
+						req.flash('success', 'film has been created!');
+						return res.redirect('/admin/films');
+					});
 			})
 			.catch(error => {
 				// console.log(error);
