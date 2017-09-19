@@ -4,10 +4,30 @@ var dbTable = 'films';
 exports.getAll = function () {
 	return new Promise(function (resolve, reject) {
 		var sql = `
-			SELECT films.id AS id, films.title AS title, films.year AS year, films.poster_image AS poster_image, categories.name AS category 
-			FROM ${dbTable}
-			LEFT JOIN category_film ON category_film.film_id = films.id 
-			LEFT JOIN categories ON categories.id = category_film.category_id
+			SELECT f.id, f.title, f.year, f.poster_image, GROUP_CONCAT(c.name SEPARATOR ' ' ) AS categories 
+			FROM films AS f
+			LEFT JOIN category_film AS cf ON cf.film_id = f.id 
+			LEFT JOIN categories AS c ON c.id = cf.category_id 
+			GROUP BY f.id;
+		`;
+		db.get().query(sql, function (error, results, fields) {
+			if (error) {
+				reject(error);
+			}
+			resolve(results);
+		});
+	});
+};
+
+exports.getByCategory = function (categoryName) {
+	return new Promise(function (resolve, reject) {
+		var sql = `
+			SELECT f.id, f.title, f.year, f.poster_image, GROUP_CONCAT(c.name SEPARATOR ' ' ) AS categories 
+			FROM films AS f
+			LEFT JOIN category_film AS cf ON cf.film_id = f.id 
+			LEFT JOIN categories AS c ON c.id = cf.category_id 
+			WHERE c.name = '${categoryName}'
+			GROUP BY f.id;
 		`;
 		db.get().query(sql, function (error, results, fields) {
 			if (error) {
@@ -29,9 +49,14 @@ exports.create = function (data) {
 	});
 };
 
-exports.addCategory = function (filmId, categoryId) {
+exports.addCategories = function (filmId, categoryIds) {
+
+	var ids = categoryIds.map((catId) => {
+		return [catId, filmId];
+	});
+
 	return new Promise(function (resolve, reject) {
-		db.get().query(`INSERT INTO category_film SET ?`, { category_id: categoryId, film_id: filmId }, function (error, results, fields) {
+		db.get().query(`INSERT INTO category_film (category_id, film_id) VALUES ?`, [ids], function (error, results, fields) {
 			if (error) {
 				reject(error);
 			}

@@ -1,0 +1,1 @@
+Note: there is no system for running migrations, these files are only here for the record, however these sql files can be run directly by mysql.

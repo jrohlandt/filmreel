@@ -70,7 +70,7 @@ module.exports = {
 	|-------------------------------------------------------------------------------
 	*/
 	store (req, res) {
-		
+
 		var validationErrors = [];
 
 		// check if image is valid and generate image path and file name
@@ -91,6 +91,7 @@ module.exports = {
 		// validate form data
 		req.checkBody('title', 'Please enter a title').notEmpty();
 		req.checkBody('year', 'Please specify the year the film was released').notEmpty();
+		// todo validate categories
 		if (req.validationErrors()) {
 			validationErrors = validationErrors.concat(req.validationErrors());	
 		}
@@ -113,7 +114,7 @@ module.exports = {
 		return film.create(data)
 			.then(result => {
 				console.log('film result', result);
-				return film.addCategory(result.insertId, req.body.category)
+				return film.addCategories(result.insertId, req.body.categories)
 					.then(result => {
 						if (posterImagePath) {
 							moveFile(req.files['poster_image'].file, imgDestination);

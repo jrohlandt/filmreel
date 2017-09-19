@@ -1,0 +1,442 @@
+
+|------------------------------------------------------------------------------
+| 2017-09-19 16:52:42
+|------------------------------------------------------------------------------
+Error: ER_BAD_FIELD_ERROR: Unknown column 'f.id' in 'field list'
+    at Query.Sequence._packetToError (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Sequence.js:52:14)
+    at Query.ErrorPacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:280:23)
+    at Parser.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Connection.js:103:28)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+    at readableAddChunk (_stream_readable.js:253:11)
+    at Socket.Readable.push (_stream_readable.js:211:10)
+    at TCP.onread (net.js:585:20)
+    --------------------
+    at Pool.query (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Pool.js:199:23)
+    at /home/vagrant/code/node_sandbox/app/models/film.js:17:12
+    at Promise (<anonymous>)
+    at Object.exports.getAll (/home/vagrant/code/node_sandbox/app/models/film.js:5:9)
+    at getData (/home/vagrant/code/node_sandbox/app/controllers/admin/FilmsController.js:16:21)
+    at index (/home/vagrant/code/node_sandbox/app/controllers/admin/FilmsController.js:25:10)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:137:13)
+    at ensureAuthenticated (/home/vagrant/code/node_sandbox/routes.js:19:11)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at /home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:281:22
+    at Function.process_params (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:335:12)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:275:10)
+
+|------------------------------------------------------------------------------
+| 2017-09-19 17:54:56
+|------------------------------------------------------------------------------
+Error: ER_BAD_FIELD_ERROR: Unknown column 'comedy' in 'where clause'
+    at Query.Sequence._packetToError (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Sequence.js:52:14)
+    at Query.ErrorPacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:280:23)
+    at Parser.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Connection.js:103:28)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+    at readableAddChunk (_stream_readable.js:253:11)
+    at Socket.Readable.push (_stream_readable.js:211:10)
+    at TCP.onread (net.js:585:20)
+    --------------------
+    at Pool.query (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Pool.js:199:23)
+    at /home/vagrant/code/node_sandbox/app/models/film.js:32:12
+    at Promise (<anonymous>)
+    at Object.exports.getByCategory (/home/vagrant/code/node_sandbox/app/models/film.js:23:9)
+    at getData (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:40:21)
+    at byCategory (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:48:10)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at /home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:281:22
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:354:14)
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:410:3)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:275:10)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:127:14)
+
+|------------------------------------------------------------------------------
+| 2017-09-19 17:55:50
+|------------------------------------------------------------------------------
+Error: ER_BAD_FIELD_ERROR: Unknown column 'comedy' in 'where clause'
+    at Query.Sequence._packetToError (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Sequence.js:52:14)
+    at Query.ErrorPacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:280:23)
+    at Parser.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Connection.js:103:28)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+    at readableAddChunk (_stream_readable.js:253:11)
+    at Socket.Readable.push (_stream_readable.js:211:10)
+    at TCP.onread (net.js:585:20)
+    --------------------
+    at Pool.query (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Pool.js:199:23)
+    at /home/vagrant/code/node_sandbox/app/models/film.js:32:12
+    at Promise (<anonymous>)
+    at Object.exports.getByCategory (/home/vagrant/code/node_sandbox/app/models/film.js:23:9)
+    at getData (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:40:21)
+    at byCategory (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:48:10)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at /home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:281:22
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:354:14)
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:410:3)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:275:10)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:127:14)
+
+|------------------------------------------------------------------------------
+| 2017-09-19 17:57:07
+|------------------------------------------------------------------------------
+Error: ER_BAD_FIELD_ERROR: Unknown column 'comedy' in 'where clause'
+    at Query.Sequence._packetToError (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Sequence.js:52:14)
+    at Query.ErrorPacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:280:23)
+    at Parser.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Connection.js:103:28)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+    at readableAddChunk (_stream_readable.js:253:11)
+    at Socket.Readable.push (_stream_readable.js:211:10)
+    at TCP.onread (net.js:585:20)
+    --------------------
+    at Pool.query (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Pool.js:199:23)
+    at /home/vagrant/code/node_sandbox/app/models/film.js:32:12
+    at Promise (<anonymous>)
+    at Object.exports.getByCategory (/home/vagrant/code/node_sandbox/app/models/film.js:23:9)
+    at getData (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:40:21)
+    at byCategory (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:48:10)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at /home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:281:22
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:354:14)
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:410:3)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:275:10)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:127:14)
+
+|------------------------------------------------------------------------------
+| 2017-09-19 17:57:33
+|------------------------------------------------------------------------------
+Error: ER_BAD_FIELD_ERROR: Unknown column 'action' in 'where clause'
+    at Query.Sequence._packetToError (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Sequence.js:52:14)
+    at Query.ErrorPacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:280:23)
+    at Parser.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Connection.js:103:28)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+    at readableAddChunk (_stream_readable.js:253:11)
+    at Socket.Readable.push (_stream_readable.js:211:10)
+    at TCP.onread (net.js:585:20)
+    --------------------
+    at Pool.query (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Pool.js:199:23)
+    at /home/vagrant/code/node_sandbox/app/models/film.js:32:12
+    at Promise (<anonymous>)
+    at Object.exports.getByCategory (/home/vagrant/code/node_sandbox/app/models/film.js:23:9)
+    at getData (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:40:21)
+    at byCategory (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:48:10)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at /home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:281:22
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:354:14)
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:410:3)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:275:10)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:127:14)
+
+|------------------------------------------------------------------------------
+| 2017-09-19 18:06:46
+|------------------------------------------------------------------------------
+Error: ER_BAD_FIELD_ERROR: Unknown column 'afdsafsd' in 'where clause'
+    at Query.Sequence._packetToError (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Sequence.js:52:14)
+    at Query.ErrorPacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:280:23)
+    at Parser.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Connection.js:103:28)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+    at readableAddChunk (_stream_readable.js:253:11)
+    at Socket.Readable.push (_stream_readable.js:211:10)
+    at TCP.onread (net.js:585:20)
+    --------------------
+    at Pool.query (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Pool.js:199:23)
+    at /home/vagrant/code/node_sandbox/app/models/film.js:32:12
+    at Promise (<anonymous>)
+    at Object.exports.getByCategory (/home/vagrant/code/node_sandbox/app/models/film.js:23:9)
+    at getData (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:40:21)
+    at byCategory (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:48:10)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at /home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:281:22
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:354:14)
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:410:3)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:275:10)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:127:14)
+
+|------------------------------------------------------------------------------
+| 2017-09-19 18:07:37
+|------------------------------------------------------------------------------
+Error: ER_BAD_FIELD_ERROR: Unknown column 'fd.id' in 'field list'
+    at Query.Sequence._packetToError (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Sequence.js:52:14)
+    at Query.ErrorPacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:280:23)
+    at Parser.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Connection.js:103:28)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+    at readableAddChunk (_stream_readable.js:253:11)
+    at Socket.Readable.push (_stream_readable.js:211:10)
+    at TCP.onread (net.js:585:20)
+    --------------------
+    at Pool.query (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Pool.js:199:23)
+    at /home/vagrant/code/node_sandbox/app/models/film.js:32:12
+    at Promise (<anonymous>)
+    at Object.exports.getByCategory (/home/vagrant/code/node_sandbox/app/models/film.js:23:9)
+    at getData (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:40:21)
+    at byCategory (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:49:10)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at /home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:281:22
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:354:14)
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:410:3)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:275:10)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:127:14)
+
+|------------------------------------------------------------------------------
+| 2017-09-19 18:07:37
+|------------------------------------------------------------------------------
+Error: ER_BAD_FIELD_ERROR: Unknown column 'fd.id' in 'field list'
+    at Query.Sequence._packetToError (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Sequence.js:52:14)
+    at Query.ErrorPacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:280:23)
+    at Parser.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Connection.js:103:28)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+    at readableAddChunk (_stream_readable.js:253:11)
+    at Socket.Readable.push (_stream_readable.js:211:10)
+    at TCP.onread (net.js:585:20)
+    --------------------
+    at Pool.query (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Pool.js:199:23)
+    at /home/vagrant/code/node_sandbox/app/models/film.js:32:12
+    at Promise (<anonymous>)
+    at Object.exports.getByCategory (/home/vagrant/code/node_sandbox/app/models/film.js:23:9)
+    at getData (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:40:21)
+    at byCategory (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:49:10)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at /home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:281:22
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:354:14)
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:410:3)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:275:10)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:127:14)
+
+|------------------------------------------------------------------------------
+| 2017-09-19 18:09:56
+|------------------------------------------------------------------------------
+Error: ER_BAD_FIELD_ERROR: Unknown column 'fd.id' in 'field list'
+    at Query.Sequence._packetToError (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Sequence.js:52:14)
+    at Query.ErrorPacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:280:23)
+    at Parser.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Connection.js:103:28)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+    at readableAddChunk (_stream_readable.js:253:11)
+    at Socket.Readable.push (_stream_readable.js:211:10)
+    at TCP.onread (net.js:585:20)
+    --------------------
+    at Pool.query (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Pool.js:199:23)
+    at /home/vagrant/code/node_sandbox/app/models/film.js:32:12
+    at Promise (<anonymous>)
+    at Object.exports.getByCategory (/home/vagrant/code/node_sandbox/app/models/film.js:23:9)
+    at getData (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:42:22)
+    at byCategory (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:57:10)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at /home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:281:22
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:354:14)
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:410:3)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:275:10)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:127:14)
+
+|------------------------------------------------------------------------------
+| 2017-09-19 18:10:32
+|------------------------------------------------------------------------------
+Error: ER_BAD_FIELD_ERROR: Unknown column 'fd.id' in 'field list'
+    at Query.Sequence._packetToError (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Sequence.js:52:14)
+    at Query.ErrorPacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:280:23)
+    at Parser.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Connection.js:103:28)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+    at readableAddChunk (_stream_readable.js:253:11)
+    at Socket.Readable.push (_stream_readable.js:211:10)
+    at TCP.onread (net.js:585:20)
+    --------------------
+    at Pool.query (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Pool.js:199:23)
+    at /home/vagrant/code/node_sandbox/app/models/film.js:32:12
+    at Promise (<anonymous>)
+    at Object.exports.getByCategory (/home/vagrant/code/node_sandbox/app/models/film.js:23:9)
+    at getData (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:42:22)
+    at byCategory (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:54:10)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at /home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:281:22
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:354:14)
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:410:3)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:275:10)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:127:14)
+
+|------------------------------------------------------------------------------
+| 2017-09-19 18:10:53
+|------------------------------------------------------------------------------
+Error: ER_BAD_FIELD_ERROR: Unknown column 'fd.id' in 'field list'
+    at Query.Sequence._packetToError (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Sequence.js:52:14)
+    at Query.ErrorPacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:280:23)
+    at Parser.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Connection.js:103:28)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+    at readableAddChunk (_stream_readable.js:253:11)
+    at Socket.Readable.push (_stream_readable.js:211:10)
+    at TCP.onread (net.js:585:20)
+    --------------------
+    at Pool.query (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Pool.js:199:23)
+    at /home/vagrant/code/node_sandbox/app/models/film.js:32:12
+    at Promise (<anonymous>)
+    at Object.exports.getByCategory (/home/vagrant/code/node_sandbox/app/models/film.js:23:9)
+    at getData (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:42:22)
+    at byCategory (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:54:10)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at /home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:281:22
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:354:14)
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:410:3)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:275:10)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:127:14)
+
+|------------------------------------------------------------------------------
+| 2017-09-19 18:11:08
+|------------------------------------------------------------------------------
+Error: ER_BAD_FIELD_ERROR: Unknown column 'fd.id' in 'field list'
+    at Query.Sequence._packetToError (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Sequence.js:52:14)
+    at Query.ErrorPacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:280:23)
+    at Parser.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Connection.js:103:28)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+    at readableAddChunk (_stream_readable.js:253:11)
+    at Socket.Readable.push (_stream_readable.js:211:10)
+    at TCP.onread (net.js:585:20)
+    --------------------
+    at Pool.query (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Pool.js:199:23)
+    at /home/vagrant/code/node_sandbox/app/models/film.js:32:12
+    at Promise (<anonymous>)
+    at Object.exports.getByCategory (/home/vagrant/code/node_sandbox/app/models/film.js:23:9)
+    at getData (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:42:22)
+    at byCategory (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:54:10)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at /home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:281:22
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:354:14)
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:410:3)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:275:10)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:127:14)
+
+|------------------------------------------------------------------------------
+| 2017-09-19 18:13:15
+|------------------------------------------------------------------------------
+Error: ER_BAD_FIELD_ERROR: Unknown column 'fdsds.id' in 'field list'
+    at Query.Sequence._packetToError (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Sequence.js:52:14)
+    at Query.ErrorPacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/sequences/Query.js:77:18)
+    at Protocol._parsePacket (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:280:23)
+    at Parser.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Parser.js:76:12)
+    at Protocol.write (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/protocol/Protocol.js:39:16)
+    at Socket.<anonymous> (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Connection.js:103:28)
+    at emitOne (events.js:115:13)
+    at Socket.emit (events.js:210:7)
+    at addChunk (_stream_readable.js:266:12)
+    at readableAddChunk (_stream_readable.js:253:11)
+    at Socket.Readable.push (_stream_readable.js:211:10)
+    at TCP.onread (net.js:585:20)
+    --------------------
+    at Pool.query (/home/vagrant/code/node_sandbox/node_modules/mysql/lib/Pool.js:199:23)
+    at /home/vagrant/code/node_sandbox/app/models/film.js:32:12
+    at Promise (<anonymous>)
+    at Object.exports.getByCategory (/home/vagrant/code/node_sandbox/app/models/film.js:23:9)
+    at getData (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:42:22)
+    at byCategory (/home/vagrant/code/node_sandbox/app/controllers/frontend/FilmsController.js:57:10)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:137:13)
+    at Route.dispatch (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:112:3)
+    at Layer.handle [as handle_request] (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/layer.js:95:5)
+    at /home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:281:22
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:354:14)
+    at param (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:365:14)
+    at Function.process_params (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:410:3)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/index.js:275:10)
+    at next (/home/vagrant/code/node_sandbox/node_modules/express/lib/router/route.js:127:14)

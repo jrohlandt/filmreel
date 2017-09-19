@@ -6,6 +6,8 @@ module.exports = (app) => {
 
 	// Frontend routes
 	app.get('/films', require('./app/controllers/frontend/FilmsController').index);
+	app.get('/films/category/:categoryName', require('./app/controllers/frontend/FilmsController').byCategory);
+	
 
 	// Admin routes
 	app.get('/admin/films', ensureAuthenticated, require('./app/controllers/admin/FilmsController').index);

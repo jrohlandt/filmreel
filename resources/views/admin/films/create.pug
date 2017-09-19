@@ -5,12 +5,16 @@ block content
 	form(method='POST' action='/admin/films/store' enctype='multipart/form-data')
 		label(for='title')  Title:
 		input#title(type='text', name='title' value= formData.title ? formData.title : '')
+		br
 		label Year:
 		input(type='text', name='year' value= formData.year ? formData.year : '')
+		br
 		label Category:
-		select(name='category')
+		select(name='categories' multiple)
 			each category in categories
 				option(value= category.id) #{category.name}
+		br
 		label Poster Image:
 		input(type='file', name='poster_image')
+		br
 		button(type='submit') Create

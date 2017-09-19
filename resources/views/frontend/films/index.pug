@@ -11,3 +11,10 @@ block content
 						img(src= film.poster_image width='200')
 						p= film.title
 						small= film.year
+						small= film.categories
+
+	if categories 
+		ul 
+			each category in categories
+				li 
+					a(href= '/films/category/'+ category.name ) #{category.name}

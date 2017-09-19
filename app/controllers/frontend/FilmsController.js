@@ -1,5 +1,6 @@
 const logger = require('../../helpers/logger.js');
 const film = require('../../models/film');
+const categoryModel = require('../../models/category');
 
 module.exports = {
 
@@ -10,23 +11,44 @@ module.exports = {
 	*/
 	index (req, res) {
 		async function getData () {
-			var films = film.getAll();
-			return {
-				title: 'Films',
-				films: await films,
-				// categories: await categories.getAll()
-			};
+			try {
+				var data = {
+					title: 'Films',
+					films: await film.getAll(),
+					categories: await categoryModel.getAll()
+				};
+			} catch(e) {
+				console.log(e);
+				logger.logError(e);
+			}
+			
+			res.render('frontend/films/index', data);
 		}
 
-		return getData()
-			.then(data => {
-				res.render('frontend/films/index', data);
-			})
-			.catch(error => {
-				logger.logError(error); // todo change logger appendsync function to use async version
-				// req.flash('error', 'a Server error occurred, please contact support.');
-				// return res.redirect('back');
-			});
+		return getData();
+	},
+
+	/*
+	|-------------------------------------------------------------------------------
+	| BY CATEGORY
+	|-------------------------------------------------------------------------------
+	*/
+	byCategory (req, res) {
+		async function getData () {
+			try {
+				var data = {
+					title: 'Films',
+					films: await film.getByCategory(req.params.categoryName),
+					categories: await categoryModel.getAll()
+				};
+			} catch(e) {
+				console.log(e);
+			}
+
+			res.render('frontend/films/index', data);
+		}
+
+		return getData();
 	},
 
 };
