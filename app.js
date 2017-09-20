@@ -13,6 +13,8 @@ const flash = require('connect-flash')
 const expressValidator = require('express-validator')
 const flashMessages = require('express-messages')
 const db = require('./db')
+const errorLogger = require(path.resolve(__dirname, 'app', 'helpers', 'logger'));
+
 global.appRoot = path.resolve(__dirname);
 /*
 |-------------------------------------------------------------------------------
@@ -200,20 +202,16 @@ db.connect(db.MODE_PRODUCTION, function (err) {
 
     // error handler
     app.use(function (err, req, res, next) {
-      // set locals, only providing error in development
-      res.locals.message = err.message
-      res.locals.error = req.app.get('env') === 'development' ? err : {}
-      var errorString = `\n
-      |------------------------------------------------------------------------------
-      | ${new Date()}
-      |------------------------------------------------------------------------------
-      ${err.stack}
-      `
-      fs.appendFileSync(path.join(__dirname, 'storage', 'logs', 'app.log'), errorString)
 
-      // render the error page
-      res.status(err.status || 500)
-      res.render('error')
+		errorLogger.logError(err); // todo use async write functions in error logger
+
+      	// set locals, only providing error in development
+		res.locals.message = 'Oops something went wrong...';
+		res.locals.error = req.app.get('env') === 'development' ? err : {};
+		
+		// render the error page
+		res.status(err.status || 500)
+		res.render('error')
     })
 
     module.exports = app

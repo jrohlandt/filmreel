@@ -9,23 +9,12 @@ module.exports = {
 	| INDEX
 	|-------------------------------------------------------------------------------
 	*/
-	index (req, res) {
-		async function getData () {
-			try {
-				var data = {
-					title: 'Films',
-					films: await film.getAll(),
-					categories: await categoryModel.getAll()
-				};
-			} catch(e) {
-				console.log(e);
-				logger.logError(e);
-			}
-			
-			res.render('frontend/films/index', data);
-		}
-
-		return getData();
+	async index (req, res) {
+		res.render('frontend/films/index', {
+			title: 'Films',
+			films: await film.getAll(),
+			categories: await categoryModel.getAll()
+		});
 	},
 
 	/*
@@ -33,22 +22,12 @@ module.exports = {
 	| BY CATEGORY
 	|-------------------------------------------------------------------------------
 	*/
-	byCategory (req, res) {
-		async function getData () {
-			try {
-				var data = {
-					title: 'Films',
-					films: await film.getByCategory(req.params.categoryName),
-					categories: await categoryModel.getAll()
-				};
-			} catch(e) {
-				console.log(e);
-			}
-
-			res.render('frontend/films/index', data);
-		}
-
-		return getData();
+	async byCategory (req, res) {
+		res.render('frontend/films/index', {
+			title: 'Films',
+			films: await film.getByCategory(req.params.categoryName),
+			categories: await categoryModel.getAll()
+		});
 	},
 
 };

@@ -2,5 +2,5 @@ node_modules/*
 uploads/*
 public/images/posters/*
 .idea
-storage/logs/*.log
+storage/logs/20*
 config/database.json

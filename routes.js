@@ -4,9 +4,11 @@ module.exports = (app) => {
 	// app.get('/', ensureAuthenticated, (req, res) => res.render('frontend/home', {title: 'Members'}))
 	// app.get('/admin', ensureAuthenticated, require('./controllers/admin/DashboardController').index)
 
+	let wrap = fn => (...args) => fn(...args).catch(args[2]);
+	
 	// Frontend routes
-	app.get('/films', require('./app/controllers/frontend/FilmsController').index);
-	app.get('/films/category/:categoryName', require('./app/controllers/frontend/FilmsController').byCategory);
+	app.get('/films', wrap(require('./app/controllers/frontend/FilmsController').index));
+	app.get('/films/category/:categoryName', wrap(require('./app/controllers/frontend/FilmsController').byCategory));
 	
 
 	// Admin routes
@@ -22,4 +24,6 @@ module.exports = (app) => {
 		}
 		res.redirect('/auth/login');
 	}
+
+	
 };
