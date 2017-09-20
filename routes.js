@@ -12,9 +12,9 @@ module.exports = (app) => {
 	
 
 	// Admin routes
-	app.get('/admin/films', ensureAuthenticated, require('./app/controllers/admin/FilmsController').index);
-	app.get('/admin/films/create', ensureAuthenticated, require('./app/controllers/admin/FilmsController').create);
-	app.post('/admin/films/store', ensureAuthenticated, require('./app/controllers/admin/FilmsController').store);
+	app.get('/admin/films', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').index));
+	app.get('/admin/films/create', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').create));
+	app.post('/admin/films/store', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').store));
 	app.get('/', require('./app/controllers/frontend/HomeController').index);
 	app.get('/demo/flex', require('./app/controllers/frontend/demo/FlexController').index);
 

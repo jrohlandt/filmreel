@@ -1,5 +1,5 @@
 const logger = require('../../helpers/logger.js');
-const film = require('../../models/film');
+const filmModel = require('../../models/film');
 const categoryModel = require('../../models/category');
 const fs = require('fs');
 const path = require('path');
@@ -11,26 +11,13 @@ module.exports = {
 	| INDEX
 	|-------------------------------------------------------------------------------
 	*/
-	index (req, res) {
-		async function getData () {
-			var films = film.getAll();
-			return {
-				title: 'Films',
-				films: await films,
-				success: req.flash('success'),
-				categories: await categoryModel.getAll()
-			};
-		}
-
-		return getData()
-			.then(data => {
-				res.render('admin/films/index', data);
-			})
-			.catch(error => {
-				logger.logError(error); // todo change logger appendsync function to use async version
-				req.flash('error', 'a Server error occurred, please contact support.');
-				return res.redirect('back');
-			});
+	async index (req, res) {
+		res.render('admin/films/index', {
+			title: 'Films',
+			films: await filmModel.getAll(),
+			success: req.flash('success'),
+			categories: await categoryModel.getAll()
+		});
 	},
 
 	/*
@@ -38,30 +25,16 @@ module.exports = {
 	| CREATE
 	|-------------------------------------------------------------------------------
 	*/
-	create (req, res) {
-
-		async function getData() {
-			var formData = req.flash('formData');
-			return { 
-				title: 'Film - Create', 
-				formData: formData.length > 0 ? formData[0] : {},
-				error: req.flash('error'),
-				validation_errors: req.flash('validation_errors'),
-				success: req.flash('success'),
-				categories: await categoryModel.getAll()
-			};
-		}
-		
-		// console.log('data: ', data);
-		return getData()
-			.then(data => {
-				return res.render('admin/films/create', data);
-			})
-			.catch(error => {
-				logger.logError(error); // todo change logger appendsync function to use async version
-				req.flash('error', 'a Server error occurred, please contact support.');
-				return res.redirect('back');
-			})
+	async create (req, res) {
+		var formData = req.flash('formData');
+		res.render('admin/films/create', { 
+			title: 'Film - Create', 
+			formData: formData.length > 0 ? formData[0] : {},
+			error: req.flash('error'),
+			validation_errors: req.flash('validation_errors'),
+			success: req.flash('success'),
+			categories: await categoryModel.getAll()
+		});
 	},
 
 	/*
@@ -69,7 +42,7 @@ module.exports = {
 	| STORE
 	|-------------------------------------------------------------------------------
 	*/
-	store (req, res) {
+	async store (req, res) {
 
 		var validationErrors = [];
 
@@ -95,7 +68,7 @@ module.exports = {
 		if (req.validationErrors()) {
 			validationErrors = validationErrors.concat(req.validationErrors());	
 		}
-		console.log('valer: ', validationErrors);
+
 		if (validationErrors.length > 0) {
 			req.flash('error', 'Please fix the following errors:');
 			req.flash('validation_errors', validationErrors);
@@ -103,31 +76,35 @@ module.exports = {
 			return res.redirect('back');
 		}
 
-		// format data
-		var data = { 
-			title: req.body.title, 
-			year: req.body.year,
-			poster_image: posterImagePath ? posterImagePath : path.join('images', 'posters', 'placeholder.png')
-		};
+		try {
+			// format data
+			var data = { 
+				title: req.body.title, 
+				year: req.body.year,
+				poster_image: posterImagePath ? posterImagePath : path.join('images', 'posters', 'placeholder.png')
+			};
+
+			// store in database
+			var result = await filmModel.create(data);
+			await filmModel.addCategories(result.insertId, req.body.categories);
+
+			if (posterImagePath) {
+				// this uses event emitter (stream) (todo research how to best handle)
+				// https://strongloop.com/strongblog/async-error-handling-expressjs-es7-promises-generators/#usinges7asyncawait
+				// Event emitters (like streams) can still cause uncaught exceptions. So make sure you are handling the error event properly.
+				moveFile(req.files['poster_image'].file, imgDestination);
+			}
+
+			req.flash('success', 'film has been created!');
+			res.redirect('/admin/films');
+
+		} catch (err) {
+			logger.logError(err);
+			req.flash('formData', req.body);
+			req.flash('error', 'The film could not be saved.');
+			return res.redirect('back');
+		}
 		
-		// store in database
-		return film.create(data)
-			.then(result => {
-				console.log('film result', result);
-				return film.addCategories(result.insertId, req.body.categories)
-					.then(result => {
-						if (posterImagePath) {
-							moveFile(req.files['poster_image'].file, imgDestination);
-						}
-						req.flash('success', 'film has been created!');
-						return res.redirect('/admin/films');
-					});
-			})
-			.catch(error => {
-				// console.log(error);
-				req.flash('error', 'The film could not be saved.');
-				return res.redirect('back');
-			});
 	}
 };
 
