@@ -7,16 +7,22 @@ module.exports = (app) => {
 	let wrap = fn => (...args) => fn(...args).catch(args[2]);
 	
 	// Frontend routes
+	app.get('/', require('./app/controllers/frontend/HomeController').index);
+	app.get('/demo/flex', require('./app/controllers/frontend/demo/FlexController').index);
 	app.get('/films', wrap(require('./app/controllers/frontend/FilmsController').index));
 	app.get('/films/category/:categoryName', wrap(require('./app/controllers/frontend/FilmsController').byCategory));
 	
 
-	// Admin routes
+	// Backend/Admin routes
 	app.get('/admin/films', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').index));
 	app.get('/admin/films/create', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').create));
 	app.post('/admin/films/store', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').store));
-	app.get('/', require('./app/controllers/frontend/HomeController').index);
-	app.get('/demo/flex', require('./app/controllers/frontend/demo/FlexController').index);
+	app.get('/admin/films/:filmId/edit', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').edit));
+	app.post('/admin/films/update', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').update));
+	
+
+
+	
 
 	function ensureAuthenticated (req, res, next) {
 		if (req.isAuthenticated()) {

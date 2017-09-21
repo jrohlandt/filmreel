@@ -57,7 +57,7 @@ db.connect(db.MODE_PRODUCTION, function (err) {
     |-------------------------------------------------------------------------------
     */
     app.use(bodyParser.json())
-    app.use(bodyParser.urlencoded({ extended: false }))
+    app.use(bodyParser.urlencoded({ extended: true }))
 	
 	// busboy allow files in form data
 	// place after bodyParser

@@ -2,7 +2,8 @@ extends ../layout.pug
 
 block content
 	h1= title
-	form(method='POST' action='/admin/films/store' enctype='multipart/form-data')
+	form(method='POST' action='/admin/films/update' enctype='multipart/form-data')
+		input(type='hidden' name='id' value= formData.id)
 		label(for='title')  Title:
 		input#title(type='text', name='title' value= formData.title ? formData.title : '')
 		br
@@ -11,8 +12,11 @@ block content
 		br
 		label Category:
 		select(name='categories[]' multiple)
-			each category in categories
-				option(value= category.id) #{category.name}
+			each category in allCategories
+				if (formData.categories.indexOf(category.id) > -1 ) 
+					option(value= category.id selected)= category.name
+				else 
+					option(value= category.id )= category.name
 		br
 		label Poster Image:
 		input(type='file', name='poster_image')

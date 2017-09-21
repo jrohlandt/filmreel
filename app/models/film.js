@@ -19,6 +19,51 @@ exports.getAll = function () {
 	});
 };
 
+exports.find = function (filmId) {
+	return new Promise(function(resolve, reject) {
+		var sql = `
+			SELECT f.id, f.title, f.year, f.poster_image 
+			FROM films AS f 
+			WHERE id = ? 
+			LIMIT 1;
+		`;
+		db.get().query(sql, [filmId], function (error, result) {
+			if (error) {
+				reject(error);
+			}
+
+			if (result[0] === undefined) {
+				resolve(result);
+			} else {
+				resolve(result[0]);
+			}
+			
+		});	
+	});
+}
+
+exports.getCategories = function (filmId) {
+	return new Promise(function(resolve, reject) {
+		var sql = `
+			SELECT DISTINCT category_id 
+			FROM category_film  
+			WHERE film_id = ?
+		`;
+		db.get().query(sql, [filmId], function (error, results) {
+			if (error) {
+				reject(error);
+			}
+
+			if (results[0] === undefined) {
+				resolve([]);
+			} else {
+				resolve(results.map((obj) => obj.category_id));
+			}
+			
+		});	
+	});
+}
+
 exports.getByCategory = function (categoryName) {
 	return new Promise(function (resolve, reject) {
 		var sql = `
@@ -49,6 +94,22 @@ exports.create = function (data) {
 	});
 };
 
+exports.update = function (filmId, data) {
+	return new Promise(function (resolve, reject) {
+		var sql = `
+			UPDATE films  
+			SET ? 
+			WHERE id = ? 
+		`;
+		db.get().query(sql, [data, filmId], function (error, results, fields) {
+			if (error) {
+				reject(error);
+			}
+			resolve(results);
+		});
+	});
+};
+
 exports.addCategories = function (filmId, categoryIds) {
 
 	var ids = categoryIds.map((catId) => {
@@ -57,6 +118,21 @@ exports.addCategories = function (filmId, categoryIds) {
 
 	return new Promise(function (resolve, reject) {
 		db.get().query(`INSERT INTO category_film (category_id, film_id) VALUES ?`, [ids], function (error, results, fields) {
+			if (error) {
+				reject(error);
+			}
+			resolve(results);
+		});
+	});
+};
+
+exports.removeCategories = function (filmId) {
+	return new Promise(function (resolve, reject) {
+		var sql = `
+			DELETE FROM category_film 
+			WHERE film_id = ?
+		`;
+		db.get().query(sql, [filmId], function (error, results, fields) {
 			if (error) {
 				reject(error);
 			}
