@@ -37,7 +37,6 @@ exports.find = function (filmId) {
 			} else {
 				resolve(result[0]);
 			}
-			
 		});	
 	});
 }
@@ -140,3 +139,20 @@ exports.removeCategories = function (filmId) {
 		});
 	});
 };
+
+exports.delete = function (filmId) {
+	return new Promise(function(resolve, reject) {
+		var sql = `
+			DELETE 
+			FROM films  
+			WHERE id = ? 
+			LIMIT 1;
+		`;
+		db.get().query(sql, [filmId], function (error, result) {
+			if (error) {
+				reject(error);
+			}
+			resolve(result[0]);
+		});	
+	});
+}

@@ -113,7 +113,6 @@ module.exports = {
 	|-------------------------------------------------------------------------------
 	*/
 	async edit (req, res) {
-		
 
 		// TODO CSRF FOR ALL FORMS IN APP (INCLUDING LOGIN PAGE)
 		var film = await filmModel.find(req.params.filmId);
@@ -128,8 +127,12 @@ module.exports = {
 			formData = formData[0];
 			// solve body-parser issue/baviour
 			// todo research why form array (categories[]) behaves like this.
-			formData.categories = formData.categories.map((item) => parseInt(item)); // then just parse to int
-			console.log('FORMDATA: ', formData, formData.year, formData.categories);
+			if (formData.categories === undefined) {
+				formData.categories = [];
+			} else {
+				formData.categories = formData.categories.map((item) => parseInt(item)); // then just parse to int
+				console.log('FORMDATA: ', formData, formData.year, formData.categories);
+			}
 		} else {
 			let categories = await filmModel.getCategories(film.id);
 			formData = {...film, categories};
@@ -210,7 +213,9 @@ module.exports = {
 			// store in database
 			var result = await filmModel.update(film.id, data);
 			await filmModel.removeCategories(film.id);
-			await filmModel.addCategories(film.id, req.body.categories);
+			if (req.body.categories !== undefined) {
+				await filmModel.addCategories(film.id, req.body.categories);			
+			}
 
 			if (posterImagePath) {
 				// this uses event emitter (stream) (todo research how to best handle)
@@ -231,9 +236,43 @@ module.exports = {
 		
 	},
 
-};
+	/*
+	|-------------------------------------------------------------------------------
+	| DELETE
+	|-------------------------------------------------------------------------------
+	*/
+	async delete (req, res) {
+		var film = await filmModel.find(req.body.id);
+		
+		if (film.length < 1) {
+			req.flash('error', 'The film could not be found');			
+			req.flash('formData', req.body);
+			return res.redirect('back');
+		}
 
-	
+		try {
+			// format data
+			var data = { 
+				title: req.body.title, 
+				year: req.body.year,
+			};
+
+			// delete film
+			var result = await filmModel.delete(film.id);
+			await filmModel.removeCategories(film.id);
+
+			req.flash('success', `film ${film.title} has been deleted!`);
+			res.redirect('/admin/films');
+
+		} catch (err) {
+			logger.logError(err);
+			req.flash('formData', req.body);
+			req.flash('error', 'The film could not be deleted.');
+			return res.redirect('back');
+		}
+	}
+
+};
 
 function getValidExtension(mimetype) {
 	var mimeTypes = {
@@ -247,17 +286,17 @@ function getValidExtension(mimetype) {
 
 function moveFile(src, dest) {
 	
-	  let readStream = fs.createReadStream(src);
-	
-	  readStream.once('error', (err) => {
+	let readStream = fs.createReadStream(src);
+
+	readStream.once('error', (err) => {
 		console.log(err);
-	  });
-	
-	  readStream.once('end', () => {
-		fs.unlinkSync(src);
+	});
+
+	readStream.once('end', () => {
+	fs.unlinkSync(src);
 		// todo also remove the dir fs.rmdir()
 		console.log('done copying');
-	  });
-	
-	  readStream.pipe(fs.createWriteStream(dest));
-	}
+	});
+
+	readStream.pipe(fs.createWriteStream(dest));
+}

@@ -19,10 +19,7 @@ module.exports = (app) => {
 	app.post('/admin/films/store', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').store));
 	app.get('/admin/films/:filmId/edit', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').edit));
 	app.post('/admin/films/update', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').update));
-	
-
-
-	
+	app.post('/admin/films/delete', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').delete));
 
 	function ensureAuthenticated (req, res, next) {
 		if (req.isAuthenticated()) {
@@ -30,6 +27,4 @@ module.exports = (app) => {
 		}
 		res.redirect('/auth/login');
 	}
-
-	
 };

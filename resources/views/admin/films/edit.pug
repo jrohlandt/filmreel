@@ -2,7 +2,7 @@ extends ../layout.pug
 
 block content
 	h1= title
-	form(method='POST' action='/admin/films/update' enctype='multipart/form-data')
+	form(method='POST' id="film-form" action='/admin/films/update' enctype='multipart/form-data')
 		input(type='hidden' name='id' value= formData.id)
 		label(for='title')  Title:
 		input#title(type='text', name='title' value= formData.title ? formData.title : '')
@@ -21,4 +21,11 @@ block content
 		label Poster Image:
 		input(type='file', name='poster_image')
 		br
-		button(type='submit') Create
+		button(type='submit') Save 
+		button(type='button' onclick='deleteFilm(' + formData.id + ')') Delete
+
+		script(src='https://unpkg.com/axios/dist/axios.min.js')
+		script(src='/admin/js/films/edit.js')
+			
+	
+			
