@@ -28,6 +28,7 @@ module.exports = {
 	async create (req, res) {
 		var formData = req.flash('formData');
 		res.render('admin/films/create', { 
+			csrfToken: req.csrfToken(),
 			title: 'Film - Create', 
 			formData: formData.length > 0 ? formData[0] : {},
 			error: req.flash('error'),
@@ -139,6 +140,7 @@ module.exports = {
 		}
 
 		var data = { 
+			csrfToken: req.csrfToken(),
 			title: 'Film - Edit', 
 			formData,
 			error: req.flash('error'),

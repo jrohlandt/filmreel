@@ -3,6 +3,7 @@ extends ../layout.pug
 block content
 	h1= title
 	form(method='POST' id="film-form" action='/admin/films/update' enctype='multipart/form-data')
+		input(type='hidden', name='_csrf' value= csrfToken)
 		input(type='hidden' name='id' value= formData.id)
 		label(for='title')  Title:
 		input#title(type='text', name='title' value= formData.title ? formData.title : '')

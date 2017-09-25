@@ -119,7 +119,8 @@ var userModel = require('../../models/user');
 //  LOGIN FORM
 // ----------------------------------------------------------------------------
 router.get('/login', (req, res, next) => {
-	return res.render('frontend/login', { title: 'Sign in' });
+	console.log('Request: ', req.session);
+	return res.render('frontend/login', { title: 'Sign in', csrfToken: req.csrfToken() });
 });
 
 // ----------------------------------------------------------------------------
@@ -182,7 +183,7 @@ passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'passwor
 // })
 
 router.post('/login', function(req, res, next) {
-
+	
 	req.checkBody('email', 'Please enter a valid email address').isEmail();
 	req.checkBody('password', 'Please enter a password').notEmpty();
 

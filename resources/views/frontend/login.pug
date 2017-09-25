@@ -1,14 +1,15 @@
 extends layout
 
 block content
-    h1 Sign in
-    form(method='post', action='/auth/login')
-        .form-group
-            label Email
-            input(name='email', type='text', placeholder='Enter email')
-        .form-group
-            label Password
-            input(name='password', type='password', placeholder='Choose password')
-  
-        .form-group
-            input(name='submit' type='submit' value='Sign in')
+	h1 Sign in
+	form(method='post', action='/auth/login')
+		input(type='hidden', name='_csrf' value= csrfToken)
+		.form-group
+			label Email
+			input(name='email', type='text', placeholder='Enter email')
+		.form-group
+			label Password
+			input(name='password', type='password', placeholder='Choose password')
+
+		.form-group
+			input(name='submit' type='submit' value='Sign in')

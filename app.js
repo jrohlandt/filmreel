@@ -8,6 +8,7 @@ const session = require('express-session')
 const MySQLStore = require('express-mysql-session')(session)
 const passport = require('passport')
 const bodyParser = require('body-parser')
+const csrf = require('csurf');
 var bb = require('express-busboy');
 const flash = require('connect-flash')
 const expressValidator = require('express-validator')
@@ -178,10 +179,11 @@ db.connect(db.MODE_PRODUCTION, function (err) {
     |-------------------------------------------------------------------------------
     */
 
+	app.use(csrf());
     // Make user object available to all routes
     app.get('*', (req, res, next) => {
       res.locals.user = req.user || null
-      next()
+      next();
     })
 
     require('./routes.js')(app);
