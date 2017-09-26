@@ -11,6 +11,9 @@ const LocalStrategy = require('passport-local').Strategy;
 
 var userModel = require('../../models/user');
 
+// router.get('/makepassword', (req, res) => {
+// 	return userModel.hashPassword('jjs9jf93jsoadj').then(hash => {console.log('new pw: ', hash); });
+// });
 // ----------------------------------------------------------------------------
 //  REGISTRATION FORM
 // ----------------------------------------------------------------------------
