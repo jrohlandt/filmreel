@@ -70,7 +70,7 @@ exports.getByCategory = function (categoryName) {
 			FROM films AS f
 			LEFT JOIN category_film AS cf ON cf.film_id = f.id 
 			LEFT JOIN categories AS c ON c.id = cf.category_id 
-			WHERE f.id IN (SELECT DISTINCT film_id FROM category_film WHERE (SELECT id FROM categories WHERE name = ?) )   
+			WHERE f.id IN (SELECT DISTINCT film_id FROM category_film WHERE category_id IN (SELECT id FROM categories WHERE name = ?) )   
 			GROUP BY f.id;
 		`;
 		db.get().query(sql, [categoryName], function (error, results, fields) {
