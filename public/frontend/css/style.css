@@ -1,20 +1,59 @@
-li.active {
-    background: dodgerblue;
+html, body, ul {
+	margin: 0;
+	padding: 0;
 }
 
-.form-group {
-    width: 100%;
-    padding: 1em;
+li {
+	list-style: none;
 }
 
-div.notifications {
-    border: dodgerblue thin solid;
+.container {
+	display: flex;
+	flex-wrap: wrap;
+}
+.header {
+	width: 100%;
+	background: #201e1e;
 }
 
-li.alert {
-    padding: 1em;
+.content {
+	width: 100%;
 }
 
-li.alert.danger {
-    color:red;
+li.film-item-wrapper {
+	width: 100%;
+	height: 110px;
+	overflow: hidden;
+	clear: both;
+	border-bottom: thin solid #F2F0EF;
+}
+
+div.film-item {
+	padding: .5em;
+}
+
+img.poster-thumbnail {
+	float: left;
+	width: 20%;	
+	margin-right: 10px;
+	max-width: 100%;
+}
+
+.film-title {
+	margin: 0;
+	text-transform: capitalize;
+}
+
+span.film-year {
+	font-size: .7em;
+}
+
+@media screen and (min-width: 350px) {
+	li.film-item-wrapper {
+		height: 160px;
+	}
+
+	img.poster-thumbnail {
+		width: 25%;
+	}
 }

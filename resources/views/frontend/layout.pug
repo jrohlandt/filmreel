@@ -1,26 +1,13 @@
 doctype html
 html
-  head
-    title=(title ? title : 'TDS')
-    link(rel='stylesheet', href='/frontend/css/style.css')
-  body
-    ul
-      li(class=(title == 'Members' ? 'active' : ''))
-        a(href='/films') Films
-      if !user
-        li
-          a(href='/auth/register') Register
-        li
-          a(href='/auth/login') Sign in
-      if user
-        li
-          a(href='/auth/logout') Sign out
-      
-    .notifications
-      if errors
-        ul
-          each error in errors
-            li.alert.danger #{error.msg}
-      != messages()
-    .content
-      block content
+	head
+		meta(http-equiv='Content-Type', content='text/html;charset=UTF-8')
+		meta(name='viewport' content='width=device-width,initial-scale=1')
+		title=(title ? title : 'Filmreel')
+		link(rel='stylesheet', href='/frontend/css/style.css')
+	body
+		.container
+			header(class='box header')
+				img(src='/filmreel_logo.png')
+			.content
+				block content

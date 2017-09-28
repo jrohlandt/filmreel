@@ -1,17 +1,19 @@
 extends ../layout.pug
 
 block content
-	h1 Films
+	a(href='/films') Films 
 
 	if films
 		ul
 			each film in films
-				li
-					div
-						img(src= film.poster_image width='200')
-						p= film.title
-						small= film.year
+				li.film-item-wrapper
+					div.film-item
+						img(src= film.poster_image class="poster-thumbnail")
+						h3.film-title= film.title 
+							span.film-year  ( #{film.year} )
 						small= film.categories
+	else 
+		p there is nothing to display
 
 	if categories 
 		ul 
