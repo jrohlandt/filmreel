@@ -11,7 +11,8 @@ block content
 		input(type='text', name='year' value= formData.year ? formData.year : '')
 		br
 		label Category:
-		select(name='categories[]' multiple)
+			button(type='button' onclick='showCategories()') select
+		select(name='categories[]' multiple id='categories-dropdown')
 			each category in categories
 				option(value= category.id) #{category.name}
 		br
@@ -19,3 +20,6 @@ block content
 		input(type='file', name='poster_image')
 		br
 		button(type='submit') Create
+
+		script(src='/admin/js/films/edit.js')
+			

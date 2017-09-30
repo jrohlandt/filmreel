@@ -8,3 +8,10 @@ function deleteFilm(filmId) {
 		form.submit();
 	}
 }
+
+function showCategories() {
+	console.log('hello');
+	var dropdown = document.querySelector('#categories-dropdown');
+	dropdown.style.display = 'block';
+
+}

@@ -5,7 +5,12 @@ head
 	meta(http-equiv='Content-Type', content='text/html;charset=UTF-8')
 	meta(name='viewport' content='width=device-width,initial-scale=1')
 	link(rel='stylesheet', href='/admin/css/style.css')
+	link(rel="stylesheet", href="/admin/css/filmform.css")
 body
+
+	.container
+		header(class='box header')
+			img(src='/filmreel_logo.png')
 	ul
 		li(class=(title == 'Members' ? 'active' : ''))
 			a(href='/') Members
