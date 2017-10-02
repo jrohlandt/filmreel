@@ -10,6 +10,9 @@ block content
 		label Year:
 		input(type='text', name='year' value= formData.year ? formData.year : '')
 		br
+		label Duration (in minutes):
+		input(type='text', name='duration' value= formData.duration ? formData.duration : '')
+		br
 		label Category:
 			button(type='button' onclick='showCategories()') select
 		select(name='categories[]' multiple id='categories-dropdown')
@@ -19,6 +22,10 @@ block content
 		label Poster Image:
 		input(type='file', name='poster_image')
 		br
+		label Description:
+		textarea(name='description' )= formData.description ? formData.description : ''
+		br
+		label
 		button(type='submit') Create
 
 		script(src='/admin/js/films/edit.js')

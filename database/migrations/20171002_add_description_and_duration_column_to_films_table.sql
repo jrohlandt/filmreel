@@ -1,0 +1,3 @@
+ALTER TABLE `films` 
+ADD COLUMN `duration` INT NULL DEFAULT NULL AFTER `year`,
+ADD COLUMN `description` TEXT NULL DEFAULT NULL AFTER `poster_image`;

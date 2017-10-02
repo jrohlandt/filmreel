@@ -4,7 +4,7 @@ var dbTable = 'films';
 exports.getAll = function () {
 	return new Promise(function (resolve, reject) {
 		var sql = `
-			SELECT f.id, f.title, f.year, f.poster_image, GROUP_CONCAT(c.name SEPARATOR ' ' ) AS categories 
+			SELECT f.id, f.title, f.year, f.poster_image, f.duration, f.description, GROUP_CONCAT(c.name SEPARATOR ' ' ) AS categories 
 			FROM films AS f
 			LEFT JOIN category_film AS cf ON cf.film_id = f.id 
 			LEFT JOIN categories AS c ON c.id = cf.category_id 
@@ -22,7 +22,7 @@ exports.getAll = function () {
 exports.find = function (filmId) {
 	return new Promise(function(resolve, reject) {
 		var sql = `
-			SELECT f.id, f.title, f.year, f.poster_image 
+			SELECT f.id, f.title, f.year, f.poster_image, f.duration, f.description 
 			FROM films AS f 
 			WHERE id = ? 
 			LIMIT 1;
@@ -66,7 +66,7 @@ exports.getCategories = function (filmId) {
 exports.getByCategory = function (categoryName) {
 	return new Promise(function (resolve, reject) {
 		var sql = `
-			SELECT f.id, f.title, f.year, f.poster_image, GROUP_CONCAT(c.name SEPARATOR ' ' ) AS categories 
+			SELECT f.id, f.title, f.year, f.poster_image, f.duration, f.description, GROUP_CONCAT(c.name SEPARATOR ' ' ) AS categories 
 			FROM films AS f
 			LEFT JOIN category_film AS cf ON cf.film_id = f.id 
 			LEFT JOIN categories AS c ON c.id = cf.category_id 

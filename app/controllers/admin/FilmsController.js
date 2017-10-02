@@ -65,6 +65,8 @@ module.exports = {
 		// validate form data
 		req.checkBody('title', 'Please enter a title').notEmpty();
 		req.checkBody('year', 'Please specify the year the film was released').notEmpty();
+		// todo validate duration
+		// todo validate description
 		// todo validate categories
 		if (req.validationErrors()) {
 			validationErrors = validationErrors.concat(req.validationErrors());	
@@ -82,12 +84,16 @@ module.exports = {
 			var data = { 
 				title: req.body.title, 
 				year: req.body.year,
-				poster_image: posterImagePath ? posterImagePath : path.join('images', 'posters', 'placeholder.png')
+				poster_image: posterImagePath ? posterImagePath : path.join('images', 'posters', 'placeholder.png'),
+				duration: req.body.duration ? req.body.duration : 0,
+				description: req.body.description
 			};
 
 			// store in database
 			var result = await filmModel.create(data);
-			await filmModel.addCategories(result.insertId, req.body.categories);
+			if (req.body.categories !== undefined) {
+				await filmModel.addCategories(result.insertId, req.body.categories);
+			}
 
 			if (posterImagePath) {
 				// this uses event emitter (stream) (todo research how to best handle)
@@ -180,6 +186,8 @@ module.exports = {
 		// validate form data
 		req.checkBody('title', 'Please enter a title').notEmpty();
 		req.checkBody('year', 'Please specify the year the film was released').notEmpty();
+		// todo validate duration
+		// todo validate description
 		// todo validate categories
 		if (req.validationErrors()) {
 			validationErrors = validationErrors.concat(req.validationErrors());	
@@ -206,6 +214,8 @@ module.exports = {
 			var data = { 
 				title: req.body.title, 
 				year: req.body.year,
+				duration: req.body.duration ? req.body.duration : 0,
+				description: req.body.description
 			};
 
 			if (posterImagePath) {
