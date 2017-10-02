@@ -48,6 +48,15 @@ span.film-year {
 	font-size: .7em;
 }
 
+span.film-categories {
+	font-size: 0.65em;
+}
+
+p.film-description {
+	color: #9A9998;
+	font-size: 0.7em;
+}
+
 @media screen and (min-width: 350px) {
 	li.film-item-wrapper {
 		height: 160px;
