@@ -72,6 +72,15 @@ p.film-description {
 	
 }
 
+.load-more-area {
+	padding: .8em;
+	text-align: center;
+}
+
+.load-more-area button {
+	height: 45px;
+}
+
 @media screen and (min-width: 350px) {
 	li.film-item-wrapper {
 		height: 160px;

@@ -1,16 +1,27 @@
 var db = require('../../db.js');
 var dbTable = 'films';
 
-exports.getAll = function () {
+exports.getAll = function (options = {}) {
+	var limit = 100;
+	var offset = 0;
+	if (options.limit !== undefined) {
+		limit = options.limit;
+	}
+
+	if (options.offset !== undefined) {
+		offset = options.offset;
+	}
 	return new Promise(function (resolve, reject) {
 		var sql = `
 			SELECT f.id, f.title, f.year, f.poster_image, f.duration, f.description, GROUP_CONCAT(c.name SEPARATOR ' ' ) AS categories 
 			FROM films AS f
 			LEFT JOIN category_film AS cf ON cf.film_id = f.id 
 			LEFT JOIN categories AS c ON c.id = cf.category_id 
-			GROUP BY f.id;
+			GROUP BY f.id 
+			LIMIT ? 
+			OFFSET ?;
 		`;
-		db.get().query(sql, function (error, results, fields) {
+		db.get().query(sql, [limit, offset], function (error, results, fields) {
 			if (error) {
 				reject(error);
 			}

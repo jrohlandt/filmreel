@@ -4,7 +4,7 @@ block content
 	if category
 		.bread-crumbs Films - by category: #{category}
 	if films
-		ul
+		ul#film-list
 			each film in films
 				li.film-item-wrapper
 					div.film-item
@@ -16,9 +16,15 @@ block content
 	else 
 		p(value='there is nothing to display')
 
+	.load-more-area
+		button(type='button' id="load-more-button" onclick='loadMore(' + offset + ')') Load More
+
 	if categories 
 		ul 
 			a(href='/films') All 
 			each category in categories
 				li 
 					a(href= '/films/category/'+ category.name ) #{category.name}
+	
+	script(src='https://unpkg.com/axios/dist/axios.min.js')
+	script(src='/frontend/js/films/index.js')

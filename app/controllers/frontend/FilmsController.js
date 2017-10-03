@@ -1,6 +1,8 @@
 const logger = require('../../helpers/logger.js');
 const film = require('../../models/film');
 const categoryModel = require('../../models/category');
+const limit = 5;
+const offsetIncrement = 5;
 
 module.exports = {
 
@@ -12,8 +14,9 @@ module.exports = {
 	async index (req, res) {
 		res.render('frontend/films/index', {
 			title: 'Films',
-			films: await film.getAll(),
-			categories: await categoryModel.getAll()
+			films: await film.getAll({limit}),
+			categories: await categoryModel.getAll(),
+			offset: offsetIncrement
 		});
 	},
 
@@ -30,6 +33,22 @@ module.exports = {
 			category: req.params.categoryName
 		});
 	},
+
+	/*
+	|-------------------------------------------------------------------------------
+	| GET MORE
+	|-------------------------------------------------------------------------------
+	*/
+	async getMore(req, res) {
+		var offset = parseInt(req.params.offset);
+		res.json({
+			newOffset: offset + offsetIncrement,
+			films: await film.getAll({
+				limit, 
+				offset 
+			})
+		});
+	}
 
 };
 

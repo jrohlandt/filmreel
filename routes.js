@@ -11,6 +11,7 @@ module.exports = (app) => {
 	app.get('/demo/flex', require('./app/controllers/frontend/demo/FlexController').index);
 	app.get('/films', wrap(require('./app/controllers/frontend/FilmsController').index));
 	app.get('/films/category/:categoryName', wrap(require('./app/controllers/frontend/FilmsController').byCategory));
+	app.get('/films/get-more/:offset', wrap(require('./app/controllers/frontend/FilmsController').getMore));
 	
 
 	// Backend/Admin routes
