@@ -26,7 +26,8 @@ module.exports = {
 		res.render('frontend/films/index', {
 			title: 'Films',
 			films: await film.getByCategory(req.params.categoryName),
-			categories: await categoryModel.getAll()
+			categories: await categoryModel.getAll(),
+			category: req.params.categoryName
 		});
 	},
 

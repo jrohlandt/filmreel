@@ -1,23 +1,24 @@
 extends ../layout.pug
 
 block content
-	a(href='/films') Films 
-
+	if category
+		.bread-crumbs Films - by category: #{category}
 	if films
 		ul
 			each film in films
 				li.film-item-wrapper
 					div.film-item
 						img(src= film.poster_image class="poster-thumbnail")
-						h3.film-title= film.title 
-							span.film-year  ( #{film.year} )
+						h2.film-title= film.title 
+							span.film-year  (#{film.year})
 						span.film-categories= film.categories
 						p.film-description #{film.description ? film.description.substring(0, 110) + '...' : 'No description' }
 	else 
-		p there is nothing to display
+		p(value='there is nothing to display')
 
 	if categories 
 		ul 
+			a(href='/films') All 
 			each category in categories
 				li 
 					a(href= '/films/category/'+ category.name ) #{category.name}

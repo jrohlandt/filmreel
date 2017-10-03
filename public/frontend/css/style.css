@@ -3,6 +3,11 @@ html, body, ul {
 	padding: 0;
 }
 
+body {
+	font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 0.7em;
+}
+
 li {
 	list-style: none;
 }
@@ -11,13 +16,20 @@ li {
 	display: flex;
 	flex-wrap: wrap;
 }
+
 .header {
+	position: fixed;
 	width: 100%;
 	background: #201e1e;
 }
 
 .content {
 	width: 100%;
+	margin-top: 55px;
+}
+
+.bread-crumbs {
+	margin: .5em;
 }
 
 li.film-item-wrapper {
@@ -39,22 +51,25 @@ img.poster-thumbnail {
 	max-width: 150px;
 }
 
-.film-title {
+h2.film-title {
 	margin: 0;
+	font-size: 1em;
 	text-transform: capitalize;
 }
 
 span.film-year {
-	font-size: .7em;
+	color: rgba(0, 0, 0, .7);
+	font-size: .9em;
 }
 
 span.film-categories {
-	font-size: 0.65em;
+	color: rgba(0, 0, 0, .7);
+	font-size: 0.7em;
 }
 
 p.film-description {
-	color: #9A9998;
-	font-size: 0.7em;
+	color: rgba(0, 0, 0, .7);
+	
 }
 
 @media screen and (min-width: 350px) {
@@ -69,6 +84,11 @@ p.film-description {
 	}
 }
 
+@media screen and (min-width: 440px) {
+	html, body {
+		font-size: 1em;
+	}
+}
 @media screen and (min-width: 750px) {
 	.content {
 	  width: 700px; /* now we make it fixed width because in this case we do not want the container to grow any further */
