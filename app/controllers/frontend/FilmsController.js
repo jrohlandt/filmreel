@@ -42,7 +42,9 @@ module.exports = {
 	async getMore(req, res) {
 		var offset = parseInt(req.params.offset);
 		res.json({
+			offsetIncrement,
 			newOffset: offset + offsetIncrement,
+			filmCount: await film.countAll(),
 			films: await film.getAll({
 				limit, 
 				offset 

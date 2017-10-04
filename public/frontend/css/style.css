@@ -77,8 +77,18 @@ p.film-description {
 	text-align: center;
 }
 
-.load-more-area button {
+#load-more-button {
 	height: 45px;
+	line-height: 45px;
+	width: 100px;
+	font-weight: bold;
+	border: thin solid rgba(0, 0, 0, .2);
+	cursor: pointer;
+	margin: auto;
+}
+
+#load-more-button:hover {
+	background: rgba(0, 0, 0, .05);
 }
 
 @media screen and (min-width: 350px) {

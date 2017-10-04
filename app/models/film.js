@@ -1,6 +1,25 @@
 var db = require('../../db.js');
 var dbTable = 'films';
 
+exports.countAll = function () {
+	return new Promise(function (resolve, reject) {
+		var sql = 'SELECT COUNT(id) AS count FROM films';
+
+		db.get().query(sql, function (error, results, fields) {
+			if (error) {
+				reject(error);
+			}
+
+			if (results[0] !== undefined) {
+				resolve(results[0]['count']);
+			} else {
+				resolve(0);
+			}
+		});
+	});
+}
+
+
 exports.getAll = function (options = {}) {
 	var limit = 100;
 	var offset = 0;
