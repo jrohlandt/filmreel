@@ -105,9 +105,9 @@ p.film-description {
 
 @media screen and (min-width: 700px) {
 
-	html, body {
+	/* html, body {
 		font-size: 0.9em;
-	}
+	} */
 
 	li.film-item-wrapper {
 		height: 250px;
