@@ -1,8 +1,8 @@
 const logger = require('../../helpers/logger.js');
 const film = require('../../models/film');
 const categoryModel = require('../../models/category');
-const limit = 5;
-const offsetIncrement = 5;
+const limit = 10;
+const offsetIncrement = 10;
 
 module.exports = {
 
