@@ -91,26 +91,30 @@ p.film-description {
 	background: rgba(0, 0, 0, .05);
 }
 
-@media screen and (min-width: 350px) {
+@media screen and (min-width: 380px) {
 	li.film-item-wrapper {
 		height: 160px;
 	}
 }
 
-@media screen and (min-width: 440px) {
+@media screen and (min-width: 550px) {
 	li.film-item-wrapper {
-		height: 250px;
+		height: 200px;
 	}
 }
 
-@media screen and (min-width: 440px) {
+@media screen and (min-width: 700px) {
+
 	html, body {
-		font-size: 1em;
+		font-size: 0.9em;
 	}
-}
-@media screen and (min-width: 750px) {
+
+	li.film-item-wrapper {
+		height: 250px;
+	}
+
 	.content {
-	  width: 700px; /* now we make it fixed width because in this case we do not want the container to grow any further */
+	  width: 700px; /* don't let content grow wider than 700px */
 	  margin-left: auto;
 	  margin-right: auto;
 	}
