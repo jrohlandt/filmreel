@@ -7,21 +7,17 @@ function loadMore(offset) {
 
 	axios.get('/films/get-more/' + offset)
 	  	.then(function (response) {
-			console.log(response.data);
 			if (response.data.filmCount < response.data.newOffset) {
-					// todo remove load more button 
+					// hide load more button 
 					document.getElementById('load-more-button').style = 'display: none;';
-					console.log('no more films');
 			}
 			
 			window.getMoreOffset = response.data.newOffset;
 			films = response.data.films;
-			films.forEach(function(film) {
-				console.log(film.title);
+			for (var i = 0; films.length > i; i++) {
 				// append film items to the DOM
-				createFilmItems(film);
-			});
-			console.log(response.data.newOffset);
+				createFilmItems(films[i]);
+			}
 	  	})
 		.catch(function (error) {
 			console.log(error);
