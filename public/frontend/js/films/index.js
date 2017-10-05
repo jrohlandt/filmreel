@@ -16,7 +16,7 @@ window.addEventListener('load', function() {
 			var data = {
 				offset: window.getMoreOffset,
 				category: document.querySelector('#category-filter').value,
-				_csrf: document.querySelector('meta[name="csrf_token"').content,
+				_csrf: document.querySelector('meta[name="csrf_token"]').content,
 			};
 		
 			axios.post('/films/get-more', data)
