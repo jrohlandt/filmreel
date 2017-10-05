@@ -23,7 +23,7 @@ window.addEventListener('load', function() {
 			.then(function(res) {
 				console.log(res.data);
 				// var loadMoreButton = document.getElementById('load-more-button');
-				if (res.data.filmCount < res.data.newOffset) {
+				if (res.data.filmCount <= res.data.newOffset) {
 					// hide load more button 
 					loadMoreButton.style = 'display: none;';
 				} else {
