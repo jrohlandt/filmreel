@@ -17,14 +17,18 @@ block content
 		p(value='there is nothing to display')
 
 	.load-more-area
-		div(id="load-more-button" onclick='loadMore(' + offset + ')') Load More
+		div(id="load-more-button" data-offset= offset ) Load More
 
+	.filters-wrapper
+	h3 Filters
 	if categories 
-		ul 
-			a(href='/films') All 
-			each category in categories
-				li 
-					a(href= '/films/category/'+ category.name ) #{category.name}
-	
+		.categories-filter
+			label Category: 
+			select(name='category_filter' id='category-filter')
+				option(value='none') none
+				each category in categories
+					option(value= category.name)= category.name
+		
+	button(type='button' id="filter-films-button" ) Go
 	script(src='https://unpkg.com/axios/dist/axios.min.js')
 	script(src='/frontend/js/films/index.js')

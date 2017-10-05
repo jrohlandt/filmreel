@@ -93,17 +93,57 @@ exports.getCategories = function (filmId) {
 	});
 }
 
-exports.getByCategory = function (categoryName) {
+// exports.getByCategory = function (categoryName) {
+// 	return new Promise(function (resolve, reject) {
+// 		var sql = `
+// 			SELECT f.id, f.title, f.year, f.poster_image, f.duration, f.description, GROUP_CONCAT(c.name SEPARATOR ' ' ) AS categories 
+// 			FROM films AS f
+// 			LEFT JOIN category_film AS cf ON cf.film_id = f.id 
+// 			LEFT JOIN categories AS c ON c.id = cf.category_id 
+// 			WHERE f.id IN (SELECT DISTINCT film_id FROM category_film WHERE category_id IN (SELECT id FROM categories WHERE name = ?) )   
+// 			GROUP BY f.id;
+// 		`;
+// 		db.get().query(sql, [categoryName], function (error, results, fields) {
+// 			if (error) {
+// 				reject(error);
+// 			}
+// 			resolve(results);
+// 		});
+// 	});
+// };
+
+exports.getFiltered = function (options) {
+	var limit = 100;
+	var offset = 0;
+	if (options.limit !== undefined) {
+		limit = options.limit;
+	}
+
+	if (options.offset !== undefined) {
+		offset = options.offset;
+	}
+
+	var sqlOptions = [limit, offset];
+	// if (options.year) {
+	// 	sqlOptions.unshift(options.year);
+	// } 
+	if (options.category) {
+		sqlOptions.unshift(options.category);
+	}
+
 	return new Promise(function (resolve, reject) {
-		var sql = `
-			SELECT f.id, f.title, f.year, f.poster_image, f.duration, f.description, GROUP_CONCAT(c.name SEPARATOR ' ' ) AS categories 
-			FROM films AS f
-			LEFT JOIN category_film AS cf ON cf.film_id = f.id 
-			LEFT JOIN categories AS c ON c.id = cf.category_id 
-			WHERE f.id IN (SELECT DISTINCT film_id FROM category_film WHERE category_id IN (SELECT id FROM categories WHERE name = ?) )   
-			GROUP BY f.id;
-		`;
-		db.get().query(sql, [categoryName], function (error, results, fields) {
+		var sql = 'SELECT f.id, f.title, f.year, f.poster_image, f.duration, f.description, GROUP_CONCAT(c.name SEPARATOR " " ) AS categories ';
+			sql += 'FROM films AS f ';
+			sql += 'LEFT JOIN category_film AS cf ON cf.film_id = f.id ';
+			sql += 'LEFT JOIN categories AS c ON c.id = cf.category_id ';
+			if (options.category) {
+				sql += 'WHERE f.id IN (SELECT DISTINCT film_id FROM category_film WHERE category_id IN (SELECT id FROM categories WHERE name = ?) ) ';		
+			}
+			sql += 'GROUP BY f.id ';
+			sql += 'LIMIT ? ';
+			sql += 'OFFSET ? ';
+
+		db.get().query(sql, sqlOptions, function (error, results, fields) {
 			if (error) {
 				reject(error);
 			}
@@ -111,6 +151,41 @@ exports.getByCategory = function (categoryName) {
 		});
 	});
 };
+
+exports.countFiltered = function (options) {
+	var sqlOptions = [];
+	// if (options.year) {
+	// 	sqlOptions.unshift(options.year);
+	// } 
+	if (options.category) {
+		sqlOptions.unshift(options.category);
+	}
+
+	return new Promise(function (resolve, reject) {
+		var sql = 'SELECT COUNT(id) AS count FROM ( ';
+			sql += 'SELECT f.id, f.title, f.year, f.poster_image, f.duration, f.description, GROUP_CONCAT(c.name SEPARATOR " " ) AS categories ';
+			sql += 'FROM films AS f ';
+			sql += 'LEFT JOIN category_film AS cf ON cf.film_id = f.id ';
+			sql += 'LEFT JOIN categories AS c ON c.id = cf.category_id ';
+			if (options.category) {
+				sql += 'WHERE f.id IN (SELECT DISTINCT film_id FROM category_film WHERE category_id IN (SELECT id FROM categories WHERE name = ?) ) ';		
+			}
+			sql += 'GROUP BY f.id ';
+		sql += ' ) AS ddd; ';
+
+		db.get().query(sql, sqlOptions, function (error, results, fields) {
+			if (error) {
+				reject(error);
+			}
+
+			if (results[0] !== undefined) {
+				resolve(results[0]['count']);
+			} else {
+				resolve(0);
+			}
+		});
+	});
+}
 
 exports.create = function (data) {
 	return new Promise(function (resolve, reject) {

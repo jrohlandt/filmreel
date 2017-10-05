@@ -91,6 +91,10 @@ p.film-description {
 	background: rgba(0, 0, 0, .05);
 }
 
+#filter-films-button {
+	height: 45px;
+}
+
 @media screen and (min-width: 380px) {
 	li.film-item-wrapper {
 		height: 160px;
