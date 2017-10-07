@@ -28,7 +28,7 @@ li {
 	float: left;
 }
 
-#quick-search {
+input[type='text']#quick-search {
 	width: 100px;
 	height: 30px;
 	margin-top: 10px;
@@ -36,6 +36,7 @@ li {
 	background: black;
 	color: #868685;
 	padding-left: 10px;
+	font-size: 1.5em;
 }
 
 .content {
