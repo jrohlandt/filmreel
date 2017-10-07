@@ -10,10 +10,10 @@ html
 		
 	body
 		.container
-			header(class='box header')
-				img(src='/filmreel_logo.png')
+			header(class='box' id='header')
+				img(src='/filmreel_logo.png' id='header-logo' )
 				if showSearch
-					input(type='text' name='quick_search' id='quick-search')
+					input(type='text' name='quick_search' id='quick-search' placeholder='search')
 			.content
 				block content
 				
