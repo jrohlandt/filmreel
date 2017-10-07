@@ -1,45 +1,42 @@
 window.addEventListener('load', function() {
 	var CSRF_TOKEN = document.querySelector('meta[name="csrf_token"]').content;
-	getMoreOffset = 0;
-	searchTerm = '';
+	var getMoreOffset = 0;
+	var searchTerm = '';
+	var getFilmsStatus = 'complete'; // possibilities: complete, pending
 	var filmList = document.querySelector('ul#film-list');
 	var loadMoreButton = document.getElementById('load-more-button');
 	var filterFilmsButton = document.getElementById('filter-films-button');
 	var quickSearchField = document.getElementById('quick-search');
 
 	loadMoreButton.addEventListener('click', function(event) {
-		loadMore(this.dataset.offset);
+
+		// when the page is first loaded, the initial offset will come from the backend
+		// it is specified in the controller and passed to the view.
+		// the next time this function is called it will use getMoreOffset 
+		// getMoreOffset is incremented in the getFilms function
+		if (getMoreOffset < this.dataset.offset) {
+			getMoreOffset = this.dataset.offset;
+		}
+		loadMore(getMoreOffset);
 	});
 
 	filterFilmsButton.addEventListener('click', function() {
+		getMoreOffset = 0; // reset offset for load more 
+		searchTerm = '';
+		quickSearchField.value = '';
+		clearFilmsList();
 		filterFilms();
 	});
 
 	quickSearchField.addEventListener('keyup', function() {
+		getMoreOffset = 0; // reset offset for load more 
 		searchTerm = this.value;
-		// function doit() {
-			
-			if (searchTerm.length < 3) {
-				return;
-			} 
-			getMoreOffset = 0;
-			// remove all current film items
-			while (filmList.firstChild) {
-				filmList.removeChild(filmList.firstChild);
-			}
-	
-			var route = '/films/quick-search';
-			var data = {
-				offset: getMoreOffset,
-				_csrf: CSRF_TOKEN,
-				search_term: searchTerm
-			};
-	
-			getFilms(route, data);
-		// }
-		// setTimeout(doit.bind(this), 1000);
+		clearFilmsList();
 		
-
+		if (searchTerm.length < 3) {
+			return;
+		}
+		searchFilms();
 	});
 
 	/*
@@ -48,6 +45,8 @@ window.addEventListener('load', function() {
 	|-------------------------------------------------------------------------------
 	*/
 	function getFilms(path, data) {
+
+		getFilmsStatus = 'pending';
 
 		axios.post(path, data)
 		.then(function(res) {
@@ -62,10 +61,19 @@ window.addEventListener('load', function() {
 	
 			getMoreOffset = res.data.newOffset;
 			films = res.data.films;
-			for (var i = 0; films.length > i; i++) {
-				// append film items to the DOM
-				createFilmItem(films[i]);
+			if (films.length < 1) {
+				// if there are no search results, useful, when previous search term
+				// resluted in a item being appended to the DOM, but now the new 
+				// search term returned no results, so there are no results
+				clearFilmsList();
+			} else {
+				for (var i = 0; films.length > i; i++) {
+					// append film items to the DOM
+					createFilmItem(films[i]);
+				}
 			}
+			
+			getFilmsStatus = 'complete';
 		})
 		.catch(function(err) {
 			console.log(err);
@@ -78,24 +86,19 @@ window.addEventListener('load', function() {
 	|-------------------------------------------------------------------------------
 	*/
 	function loadMore(offset) {
-		// when the page is first loaded, the initial offset will come from the backend
-		// it is specified in the controller and passed to the view.
-		// the next time this function is called it will use getMoreOffset
-		if (getMoreOffset < offset) {
-			getMoreOffset = offset;
-		}
 	
+		// if searchTerm exists and is valid
 		if (searchTerm.length > 2) {
 			var route = '/films/quick-search';
 			var data = {
-				offset: getMoreOffset,
+				offset: offset,
 				_csrf: CSRF_TOKEN,
 				search_term: searchTerm
 			};
 		} else {
 			var route = '/films/get-more';
 			var data = {
-				offset: getMoreOffset,
+				offset: offset,
 				_csrf: CSRF_TOKEN,
 				category: document.querySelector('#category-filter').value,
 			};
@@ -110,24 +113,45 @@ window.addEventListener('load', function() {
 	|-------------------------------------------------------------------------------
 	*/
 	function filterFilms() {
-		getMoreOffset = 0;
-		searchTerm = '';
-		quickSearchField.value = '';
-
-		var filmList = document.querySelector('ul#film-list');
-		// remove all current film items
-		while (filmList.firstChild) {
-			filmList.removeChild(filmList.firstChild);
-		}
-
 		var route = '/films/get-more';
 		var data = {
-			offset: getMoreOffset,
+			offset: 0,
 			_csrf: CSRF_TOKEN,
 			category: document.querySelector('#category-filter').value,
 		};
 	
 		getFilms(route, data);
+	}
+
+	function searchFilms() {
+		var route = '/films/quick-search';
+		var data = {
+			offset: 0,
+			_csrf: CSRF_TOKEN,
+			search_term: searchTerm
+		};
+
+		var intervalId = setInterval(function() {
+			console.log('intervalll', getFilmsStatus);
+			if (getFilmsStatus === 'pending') {
+				return;
+			}
+			clearFilmsList();
+			getFilms(route, data);
+			clearInterval(intervalId);
+		}, 100);
+	}
+
+	/*
+	|-------------------------------------------------------------------------------
+	| CLEAR FILMS LIST : removes all current film items from the DOM
+	|-------------------------------------------------------------------------------
+	*/
+	function clearFilmsList() {
+		// remove all current film items
+		while (filmList.firstChild) {
+			filmList.removeChild(filmList.firstChild);
+		}
 	}
 	
 	/*
