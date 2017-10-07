@@ -6,10 +6,15 @@ html
 		meta(name='csrf_token' content= csrfToken)
 		title=(title ? title : 'Filmreel')
 		link(rel='stylesheet', href='/frontend/css/style.css')
-		link(rel='stylesheet', href='/frontend/css/login.css')
+		block stylesheets
+		
 	body
 		.container
 			header(class='box header')
 				img(src='/filmreel_logo.png')
+				if showSearch
+					input(type='text' name='quick_search' id='quick-search')
 			.content
 				block content
+				
+		block scripts

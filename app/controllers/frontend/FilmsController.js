@@ -17,7 +17,8 @@ module.exports = {
 			title: 'Films',
 			films: await film.getAll({limit}),
 			categories: await categoryModel.getAll(),
-			offset: offsetIncrement
+			offset: offsetIncrement,
+			showSearch: true
 		});
 	},
 
@@ -26,14 +27,14 @@ module.exports = {
 	| BY CATEGORY
 	|-------------------------------------------------------------------------------
 	*/
-	async byCategory (req, res) {
-		res.render('frontend/films/index', {
-			title: 'Films',
-			films: await film.getByCategory(req.params.categoryName),
-			categories: await categoryModel.getAll(),
-			category: req.params.categoryName
-		});
-	},
+	// async byCategory (req, res) {
+	// 	res.render('frontend/films/index', {
+	// 		title: 'Films',
+	// 		films: await film.getByCategory(req.params.categoryName),
+	// 		categories: await categoryModel.getAll(),
+	// 		category: req.params.categoryName
+	// 	});
+	// },
 
 	/*
 	|-------------------------------------------------------------------------------
@@ -86,6 +87,32 @@ module.exports = {
 			films: await film.getFiltered({
 				category,
 				year,
+				limit, 
+				offset 
+			})
+		});
+	},
+
+	/*
+	|-------------------------------------------------------------------------------
+	| QUICK SEARCH
+	|-------------------------------------------------------------------------------
+	*/
+	async quickSearch(req, res) {
+		var offset = req.body.offset !== undefined ? parseInt(req.body.offset) : 0;			
+		var searchTerm = (req.body.search_term !== undefined && req.body.search_term.length > 2)
+			? req.body.search_term 
+			: false;
+		// return res.json({'message': 'success', 'searchTerm': searchTerm});
+		
+		res.json({
+			offsetIncrement,
+			newOffset: offset + offsetIncrement,
+			filmCount: await film.countQuickSearch({
+				searchTerm
+			}),
+			films: await film.getQuickSearch({
+				searchTerm,
 				limit, 
 				offset 
 			})

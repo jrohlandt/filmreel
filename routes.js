@@ -12,6 +12,7 @@ module.exports = (app) => {
 	app.get('/films', wrap(require('./app/controllers/frontend/FilmsController').index));
 	app.get('/films/category/:categoryName', wrap(require('./app/controllers/frontend/FilmsController').byCategory));
 	app.post('/films/get-more', wrap(require('./app/controllers/frontend/FilmsController').getMore));
+	app.post('/films/quick-search', wrap(require('./app/controllers/frontend/FilmsController').quickSearch));
 	
 	
 

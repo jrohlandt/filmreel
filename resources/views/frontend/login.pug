@@ -1,5 +1,8 @@
 extends layout
 
+block stylesheets
+	link(rel='stylesheet', href='/frontend/css/login.css')
+	
 block content
 	h1 Sign in
 	form(method='post', action='/auth/login')

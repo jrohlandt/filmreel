@@ -1,5 +1,8 @@
 extends ../layout.pug
 
+block stylesheets
+	link(rel='stylesheet' href='/frontend/css/films/filmslist.css')
+
 block content
 	if category
 		.bread-crumbs Films - by category: #{category}
@@ -14,7 +17,7 @@ block content
 						span.film-categories= film.categories
 						p.film-description #{film.description ? film.description.substring(0, 110) + '...' : 'No description' }
 	else 
-		p(value='there is nothing to display')
+		p no films
 
 	.load-more-area
 		div(id="load-more-button" data-offset= offset ) Load More
@@ -29,6 +32,8 @@ block content
 				each category in categories
 					option(value= category.name)= category.name
 		
-	button(type='button' id="filter-films-button" ) Go
+	button(type='button' id="filter-films-button" ) Apply Filter
+	
+block scripts
 	script(src='https://unpkg.com/axios/dist/axios.min.js')
-	script(src='/frontend/js/films/index.js')
+	script(src='/frontend/js/films/filmslist.js')

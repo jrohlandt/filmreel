@@ -32,100 +32,10 @@ li {
 	margin: .5em;
 }
 
-li.film-item-wrapper {
-	width: 100%;
-	height: 110px;
-	overflow: hidden;
-	clear: both;
-	border-bottom: thin solid #F2F0EF;
-}
-
-div.film-item {
-	padding: .5em;
-}
-
-img.poster-thumbnail {
-	float: left;
-	width: 20%;	
-	margin-right: 10px;
-	max-width: 150px;
-}
-
-h2.film-title {
-	margin: 0;
-	font-size: 1em;
-	text-transform: capitalize;
-}
-
-span.film-year {
-	color: rgba(0, 0, 0, .7);
-	font-size: .9em;
-}
-
-span.film-categories {
-	color: rgba(0, 0, 0, .7);
-	font-size: 0.7em;
-}
-
-p.film-description {
-	color: rgba(0, 0, 0, .7);
-	
-}
-
-.load-more-area {
-	padding: .8em;
-	text-align: center;
-}
-
-#load-more-button {
-	height: 45px;
-	line-height: 45px;
-	width: 100px;
-	font-weight: bold;
-	border: thin solid rgba(0, 0, 0, .2);
-	cursor: pointer;
-	margin: auto;
-}
-
-#load-more-button:hover {
-	background: rgba(0, 0, 0, .05);
-}
-
-#filter-films-button {
-	height: 45px;
-}
-
-@media screen and (min-width: 380px) {
-	li.film-item-wrapper {
-		height: 160px;
-	}
-}
-
-@media screen and (min-width: 550px) {
-	li.film-item-wrapper {
-		height: 200px;
-	}
-}
-
-@media screen and (min-width: 320px) and (max-width: 699px) {
-	body {
-		-webkit-text-size-adjust: 100%;
-	}
-}
-
 @media screen and (min-width: 700px) {
-
-	html, body {
-		font-size: 0.9em;
-	}
-
-	li.film-item-wrapper {
-		height: 250px;
-	}
-
 	.content {
-	  width: 700px; /* don't let content grow wider than 700px */
-	  margin-left: auto;
-	  margin-right: auto;
+		width: 700px; /* don't let content grow wider than 700px */
+		margin-left: auto;
+		margin-right: auto;
 	}
-  }
+}

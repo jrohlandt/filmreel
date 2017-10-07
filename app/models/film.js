@@ -187,6 +187,85 @@ exports.countFiltered = function (options) {
 	});
 }
 
+exports.getQuickSearch = function (options) {
+	var limit = 100;
+	var offset = 0;
+	if (options.limit !== undefined) {
+		limit = options.limit;
+	}
+
+	if (options.offset !== undefined) {
+		offset = options.offset;
+	}
+
+	var sqlOptions = [limit, offset];
+
+	if (options.searchTerm) {
+		searchTerm = '%' + options.searchTerm + '%';
+		sqlOptions.unshift(searchTerm);
+	}
+
+	return new Promise(function (resolve, reject) {
+		var sql = 'SELECT f.id, f.title, f.year, f.poster_image, f.duration, f.description, GROUP_CONCAT(c.name SEPARATOR " " ) AS categories ';
+			sql += 'FROM films AS f ';
+			sql += 'LEFT JOIN category_film AS cf ON cf.film_id = f.id ';
+			sql += 'LEFT JOIN categories AS c ON c.id = cf.category_id ';
+			// if (options.category) {
+			// 	sql += 'WHERE f.id IN (SELECT DISTINCT film_id FROM category_film WHERE category_id IN (SELECT id FROM categories WHERE name = ?) ) ';		
+			// }
+			if (options.searchTerm) {
+				sql += 'WHERE f.title LIKE ? ';
+			}
+			sql += 'GROUP BY f.id ';
+			sql += 'LIMIT ? ';
+			sql += 'OFFSET ? ';
+
+		db.get().query(sql, sqlOptions, function (error, results, fields) {
+			if (error) {
+				reject(error);
+			}
+			resolve(results);
+		});
+	});
+};
+
+exports.countQuickSearch = function (options) {
+	
+	var sqlOptions = [];
+
+	if (options.searchTerm) {
+		searchTerm = '%' + options.searchTerm + '%';
+		sqlOptions.unshift(searchTerm);
+	}
+
+	return new Promise(function (resolve, reject) {
+		var sql = 'SELECT COUNT(id) AS count FROM ( ';
+			sql += 'SELECT f.id, f.title, f.year, f.poster_image, f.duration, f.description, GROUP_CONCAT(c.name SEPARATOR " " ) AS categories ';
+			sql += 'FROM films AS f ';
+			sql += 'LEFT JOIN category_film AS cf ON cf.film_id = f.id ';
+			sql += 'LEFT JOIN categories AS c ON c.id = cf.category_id ';
+			// if (options.category) {
+			// 	sql += 'WHERE f.id IN (SELECT DISTINCT film_id FROM category_film WHERE category_id IN (SELECT id FROM categories WHERE name = ?) ) ';		
+			// }
+			if (options.searchTerm) {
+				sql += 'WHERE f.title LIKE ? ';
+			}
+			sql += 'GROUP BY f.id ';
+		sql += ' ) AS ddd; ';
+
+		db.get().query(sql, sqlOptions, function (error, results, fields) {
+			if (error) {
+				reject(error);
+			}
+			if (results[0] !== undefined) {
+				resolve(results[0]['count']);
+			} else {
+				resolve(0);
+			}
+		});
+	});
+};
+
 exports.create = function (data) {
 	return new Promise(function (resolve, reject) {
 		db.get().query(`INSERT INTO ${dbTable} SET ?`, data, function (error, results, fields) {
