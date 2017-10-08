@@ -28,9 +28,9 @@ block content
 		.categories-filter
 			label Category: 
 			select(name='category_filter' id='category-filter')
-				option(value='none') none
+				option(value='0') none
 				each category in categories
-					option(value= category.name)= category.name
+					option(value= category.id)= category.name
 		
 	button(type='button' id="filter-films-button" ) Apply Filter
 	

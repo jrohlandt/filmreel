@@ -93,25 +93,6 @@ exports.getCategories = function (filmId) {
 	});
 }
 
-// exports.getByCategory = function (categoryName) {
-// 	return new Promise(function (resolve, reject) {
-// 		var sql = `
-// 			SELECT f.id, f.title, f.year, f.poster_image, f.duration, f.description, GROUP_CONCAT(c.name SEPARATOR ' ' ) AS categories 
-// 			FROM films AS f
-// 			LEFT JOIN category_film AS cf ON cf.film_id = f.id 
-// 			LEFT JOIN categories AS c ON c.id = cf.category_id 
-// 			WHERE f.id IN (SELECT DISTINCT film_id FROM category_film WHERE category_id IN (SELECT id FROM categories WHERE name = ?) )   
-// 			GROUP BY f.id;
-// 		`;
-// 		db.get().query(sql, [categoryName], function (error, results, fields) {
-// 			if (error) {
-// 				reject(error);
-// 			}
-// 			resolve(results);
-// 		});
-// 	});
-// };
-
 exports.getFiltered = function (options) {
 	var limit = 100;
 	var offset = 0;
@@ -127,8 +108,8 @@ exports.getFiltered = function (options) {
 	// if (options.year) {
 	// 	sqlOptions.unshift(options.year);
 	// } 
-	if (options.category) {
-		sqlOptions.unshift(options.category);
+	if (options.categoryId) {
+		sqlOptions.unshift(options.categoryId);
 	}
 
 	return new Promise(function (resolve, reject) {
@@ -136,8 +117,8 @@ exports.getFiltered = function (options) {
 			sql += 'FROM films AS f ';
 			sql += 'LEFT JOIN category_film AS cf ON cf.film_id = f.id ';
 			sql += 'LEFT JOIN categories AS c ON c.id = cf.category_id ';
-			if (options.category) {
-				sql += 'WHERE f.id IN (SELECT DISTINCT film_id FROM category_film WHERE category_id IN (SELECT id FROM categories WHERE name = ?) ) ';		
+			if (options.categoryId) {
+				sql += 'WHERE f.id IN (SELECT DISTINCT film_id FROM category_film WHERE category_id IN (SELECT id FROM categories WHERE id = ? ) ) ';		
 			}
 			sql += 'GROUP BY f.id ';
 			sql += 'LIMIT ? ';
@@ -157,8 +138,8 @@ exports.countFiltered = function (options) {
 	// if (options.year) {
 	// 	sqlOptions.unshift(options.year);
 	// } 
-	if (options.category) {
-		sqlOptions.unshift(options.category);
+	if (options.categoryId) {
+		sqlOptions.unshift(options.categoryId);
 	}
 
 	return new Promise(function (resolve, reject) {
@@ -167,8 +148,8 @@ exports.countFiltered = function (options) {
 			sql += 'FROM films AS f ';
 			sql += 'LEFT JOIN category_film AS cf ON cf.film_id = f.id ';
 			sql += 'LEFT JOIN categories AS c ON c.id = cf.category_id ';
-			if (options.category) {
-				sql += 'WHERE f.id IN (SELECT DISTINCT film_id FROM category_film WHERE category_id IN (SELECT id FROM categories WHERE name = ?) ) ';		
+			if (options.categoryId) {
+				sql += 'WHERE f.id IN (SELECT DISTINCT film_id FROM category_film WHERE category_id IN (SELECT id FROM categories WHERE id = ?) ) ';		
 			}
 			sql += 'GROUP BY f.id ';
 		sql += ' ) AS ddd; ';

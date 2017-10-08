@@ -56,36 +56,27 @@ module.exports = {
 
 	async getMore(req, res) {
 		
-		var offset = req.body.offset !== undefined ? parseInt(req.body.offset) : 0;	
-		// todo sanitize these
-		var category = (req.body.category !== undefined && req.body.category !== 'none') 
-			? req.body.category 
-			: false;
-		var year = req.body.year !== undefined ? req.body.year : false;
+		// validate post data
+		req.checkBody('category', 'No message').isInt();
+		req.checkBody('offset', 'No message').isInt();
+		// req.checkBody('year', 'No message').isInt();
+		if (req.validationErrors()) {
+			return res.status(500);
+		}
 
-		// if (category === false && year === false) {
-		// 	filmCount = await film.countAll();
-		// 	films = await film.getAll({
-		// 		limit, 
-		// 		offset 
-		// 	});
-		// } else {
-		// 	filmCount = await film.countAll();
-		// 	films = await film.getAll({
-		// 		limit, 
-		// 		offset 
-		// 	});
-		// }
+		var offset = parseInt(req.body.offset);
+		var categoryId = req.body.category == 0 ? false : parseInt(req.body.category);
+		var year = false;
 		
 		res.json({
 			offsetIncrement,
 			newOffset: offset + offsetIncrement,
 			filmCount: await film.countFiltered({
-				category,
+				categoryId,
 				year 
 			}),
 			films: await film.getFiltered({
-				category,
+				categoryId,
 				year,
 				limit, 
 				offset 
@@ -99,11 +90,22 @@ module.exports = {
 	|-------------------------------------------------------------------------------
 	*/
 	async quickSearch(req, res) {
-		var offset = req.body.offset !== undefined ? parseInt(req.body.offset) : 0;			
-		var searchTerm = (req.body.search_term !== undefined && req.body.search_term.length > 2)
-			? req.body.search_term 
-			: false;
-		// return res.json({'message': 'success', 'searchTerm': searchTerm});
+
+		req.checkBody('offset', 'No message').isInt();
+		req.checkBody('search_term', 'No message').isAlphanumeric().isLength({min: 3, max: 30});
+		// req.checkBody('year', 'No message').isInt();
+		if (req.validationErrors()) {
+			// if validation fails, just return a empty film array
+			return res.json({
+				offsetIncrement,
+				newOffset: 0,
+				filmCount: 0,
+				films: []
+			});
+		}
+
+		var offset = parseInt(req.body.offset);			
+		var searchTerm = req.body.search_term;
 		
 		res.json({
 			offsetIncrement,

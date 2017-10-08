@@ -123,6 +123,11 @@ window.addEventListener('load', function() {
 		getFilms(route, data);
 	}
 
+	/*
+	|-------------------------------------------------------------------------------
+	| SEARCH FILMS
+	|-------------------------------------------------------------------------------
+	*/
 	function searchFilms() {
 		var route = '/films/quick-search';
 		var data = {
@@ -131,9 +136,10 @@ window.addEventListener('load', function() {
 			search_term: searchTerm
 		};
 
+		var i = 0;
 		var intervalId = setInterval(function() {
-			console.log('intervalll', getFilmsStatus);
-			if (getFilmsStatus === 'pending') {
+			i++;
+			if (getFilmsStatus === 'pending' && i < 100) { // wait max 10 seconds
 				return;
 			}
 			clearFilmsList();
