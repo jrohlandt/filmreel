@@ -6,6 +6,7 @@ window.addEventListener('load', function() {
 	var filmList = document.querySelector('ul#film-list');
 	var loadMoreButton = document.getElementById('load-more-button');
 	// var filterFilmsButton = document.getElementById('filter-films-button');
+	var filterCategoriesRow = document.getElementById('categories-row');
 	var filterCategoriesList = document.getElementById('categories-list');
 	var selectedCategorySpan = document.getElementById('selected-category');
 
@@ -23,6 +24,10 @@ window.addEventListener('load', function() {
 		loadMore(getMoreOffset);
 	});
 
+	filterCategoriesRow.addEventListener('click', function() {
+		filterCategoriesList.classList.remove('hide-list');
+	});
+
 	filterCategoriesList.addEventListener('click', function(e) {
 		if (e.target && e.target.matches('li.category-list-item')) {
 			var listItem = e.target;
@@ -32,6 +37,7 @@ window.addEventListener('load', function() {
 			selectedCategorySpan.removeChild(selectedCategorySpan.firstChild);
 			selectedCategorySpan.appendChild(document.createTextNode(listItem.dataset.categoryName));
 			document.getElementById('filter-by').dataset.filterByCategory = categoryId;
+			filterCategoriesList.classList.add('hide-list');
 			getMoreOffset = 0; // reset offset for load more 
 			searchTerm = '';
 			quickSearchField.value = '';

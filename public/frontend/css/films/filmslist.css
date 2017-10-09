@@ -57,9 +57,44 @@ p.film-description {
 	background: rgba(0, 0, 0, .05);
 }
 
-#filter-films-button {
-	height: 45px;
+#filters-wrapper {
+	padding: 0.5em;
+	background: rgba(0, 0, 0, 0.5);
 }
+
+#filters-wrapper h3 {
+	color: white;
+	letter-spacing: 0.07em;
+}
+
+.filter-row {
+	padding: 1em;
+	border-bottom: thin solid #F2F0EF;
+}
+
+span#selected-category {
+	text-transform: capitalize;
+}
+
+#categories-list {
+	
+}
+
+.hide-list {
+	display: none;
+}
+
+.show-list {
+	display: block;
+}
+
+.category-list-item {
+	text-align: center;
+	padding: 0.6em;
+	font-size: 1.2em;
+}
+
+
 
 @media screen and (min-width: 380px) {
 	li.film-item-wrapper {
