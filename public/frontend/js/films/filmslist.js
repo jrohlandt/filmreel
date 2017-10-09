@@ -5,7 +5,10 @@ window.addEventListener('load', function() {
 	var getFilmsStatus = 'complete'; // possibilities: complete, pending
 	var filmList = document.querySelector('ul#film-list');
 	var loadMoreButton = document.getElementById('load-more-button');
-	var filterFilmsButton = document.getElementById('filter-films-button');
+	// var filterFilmsButton = document.getElementById('filter-films-button');
+	var filterCategoriesList = document.getElementById('categories-list');
+	var selectedCategorySpan = document.getElementById('selected-category');
+
 	var quickSearchField = document.getElementById('quick-search');
 
 	loadMoreButton.addEventListener('click', function(event) {
@@ -20,18 +23,37 @@ window.addEventListener('load', function() {
 		loadMore(getMoreOffset);
 	});
 
-	filterFilmsButton.addEventListener('click', function() {
-		getMoreOffset = 0; // reset offset for load more 
-		searchTerm = '';
-		quickSearchField.value = '';
-		clearFilmsList();
-		filterFilms();
+	filterCategoriesList.addEventListener('click', function(e) {
+		if (e.target && e.target.matches('li.category-list-item')) {
+			var listItem = e.target;
+			var categoryId = listItem.dataset.categoryId;
+			console.log('true', categoryId, e.target);
+			
+			selectedCategorySpan.removeChild(selectedCategorySpan.firstChild);
+			selectedCategorySpan.appendChild(document.createTextNode(listItem.dataset.categoryName));
+			document.getElementById('filter-by').dataset.filterByCategory = categoryId;
+			getMoreOffset = 0; // reset offset for load more 
+			searchTerm = '';
+			quickSearchField.value = '';
+			clearFilmsList();
+			filterFilms();
+		} else {
+			console.log('false', e.target);
+		}
 	});
+	// filterFilmsButton.addEventListener('click', function() {
+	// 	getMoreOffset = 0; // reset offset for load more 
+	// 	searchTerm = '';
+	// 	quickSearchField.value = '';
+	// 	clearFilmsList();
+	// 	filterFilms();
+	// });
 
 	quickSearchField.addEventListener('keyup', function() {
 		getMoreOffset = 0; // reset offset for load more 
 		searchTerm = this.value;
 		clearFilmsList();
+		clearFilters();
 		
 		if (searchTerm.length < 3) {
 			return;
@@ -100,7 +122,7 @@ window.addEventListener('load', function() {
 			var data = {
 				offset: offset,
 				_csrf: CSRF_TOKEN,
-				category: document.querySelector('#category-filter').value,
+				category: document.getElementById('filter-by').dataset.filterByCategory,
 			};
 		} 
 
@@ -117,7 +139,7 @@ window.addEventListener('load', function() {
 		var data = {
 			offset: 0,
 			_csrf: CSRF_TOKEN,
-			category: document.querySelector('#category-filter').value,
+			category: document.getElementById('filter-by').dataset.filterByCategory,
 		};
 	
 		getFilms(route, data);
@@ -158,6 +180,17 @@ window.addEventListener('load', function() {
 		while (filmList.firstChild) {
 			filmList.removeChild(filmList.firstChild);
 		}
+	}
+
+	/*
+	|-------------------------------------------------------------------------------
+	| CLEAR FILTERS
+	|-------------------------------------------------------------------------------
+	*/
+	function clearFilters() {
+		document.getElementById('filter-by').dataset.filterByCategory = 0;
+		selectedCategorySpan.removeChild(selectedCategorySpan.firstChild);
+		selectedCategorySpan.appendChild(document.createTextNode('None'));
 	}
 	
 	/*
