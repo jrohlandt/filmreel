@@ -5,15 +5,12 @@ window.addEventListener('load', function() {
 	var getFilmsStatus = 'complete'; // possibilities: complete, pending
 	var filmList = document.querySelector('ul#film-list');
 	var loadMoreButton = document.getElementById('load-more-button');
-	// var filterFilmsButton = document.getElementById('filter-films-button');
 	var filterCategoriesRow = document.getElementById('categories-row');
 	var filterCategoriesList = document.getElementById('categories-list');
 	var selectedCategorySpan = document.getElementById('selected-category');
-
 	var quickSearchField = document.getElementById('quick-search');
 
 	loadMoreButton.addEventListener('click', function(event) {
-
 		// when the page is first loaded, the initial offset will come from the backend
 		// it is specified in the controller and passed to the view.
 		// the next time this function is called it will use getMoreOffset 
@@ -32,8 +29,6 @@ window.addEventListener('load', function() {
 		if (e.target && e.target.matches('li.category-list-item')) {
 			var listItem = e.target;
 			var categoryId = listItem.dataset.categoryId;
-			console.log('true', categoryId, e.target);
-			
 			selectedCategorySpan.removeChild(selectedCategorySpan.firstChild);
 			selectedCategorySpan.appendChild(document.createTextNode(listItem.dataset.categoryName));
 			document.getElementById('filter-by').dataset.filterByCategory = categoryId;
@@ -43,17 +38,8 @@ window.addEventListener('load', function() {
 			quickSearchField.value = '';
 			clearFilmsList();
 			filterFilms();
-		} else {
-			console.log('false', e.target);
 		}
 	});
-	// filterFilmsButton.addEventListener('click', function() {
-	// 	getMoreOffset = 0; // reset offset for load more 
-	// 	searchTerm = '';
-	// 	quickSearchField.value = '';
-	// 	clearFilmsList();
-	// 	filterFilms();
-	// });
 
 	quickSearchField.addEventListener('keyup', function() {
 		getMoreOffset = 0; // reset offset for load more 
@@ -78,8 +64,6 @@ window.addEventListener('load', function() {
 
 		axios.post(path, data)
 		.then(function(res) {
-			console.log(res.data);
-			// var loadMoreButton = document.getElementById('load-more-button');
 			if (res.data.filmCount <= res.data.newOffset) {
 				// hide load more button 
 				loadMoreButton.style = 'display: none;';
