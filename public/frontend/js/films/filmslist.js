@@ -52,13 +52,13 @@ window.addEventListener('load', function() {
 		getMoreOffset = 0; // reset offset for load more 
 		searchTerm = this.value;
 		clearFilmsList();
+		linearScrollUp(1000);
 		clearFilters();
 		
 		if (searchTerm.length < 3) {
 			return;
 		}
 		searchFilms();
-		linearScrollUp(1000);
 	});
 
 
