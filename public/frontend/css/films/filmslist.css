@@ -118,6 +118,12 @@ span#selected-category {
 	li.film-item-wrapper {
 		height: 200px;
 	}
+
+	#categories-list-wrapper {
+		position: relative;
+		background: grey;
+		width: 100%;
+	}
 }
 
 @media screen and (min-width: 319px) and (max-width: 699px) {

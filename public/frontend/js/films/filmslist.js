@@ -22,7 +22,14 @@ window.addEventListener('load', function() {
 	});
 
 	filterCategoriesRow.addEventListener('click', function() {
-		filterCategoriesList.classList.remove('hide-list');
+		// console.log(window.innerHeight); return;
+		// todo toggle if classlist has hide-list, then remove it, else add it
+		if (filterCategoriesList.classList.contains('hide-list')) {
+			filterCategoriesList.classList.remove('hide-list');	
+			linearScrollDown(3000);	
+		} else {
+			filterCategoriesList.classList.add('hide-list');
+		}
 	});
 
 	filterCategoriesList.addEventListener('click', function(e) {
@@ -51,7 +58,10 @@ window.addEventListener('load', function() {
 			return;
 		}
 		searchFilms();
+		linearScrollUp(1000);
 	});
+
+
 
 	/*
 	|-------------------------------------------------------------------------------
@@ -235,5 +245,27 @@ window.addEventListener('load', function() {
 	
 		listItem.appendChild(filmDiv);
 		filmUl.appendChild(listItem);
+	}
+
+	function linearScrollUp(duration) {
+		var scrollStep = -window.scrollY / (duration / 15);		
+        var scrollInterval = setInterval(function() {
+			if (window.scrollY != 0) {
+				window.scrollBy( 0, scrollStep );
+			} else {
+				clearInterval(scrollInterval); 
+			} 
+    	},15);
+	}
+
+	function linearScrollDown(duration) {
+		var scrollStep = window.scrollY / (duration / 15);
+        var scrollInterval = setInterval(function() {
+			if ( window.scrollY < document.body.scrollHeight - window.innerHeight) {	
+				window.scrollBy( 0, scrollStep );
+			} else {
+				clearInterval(scrollInterval); 
+			} 
+    	},15);
 	}
 });
