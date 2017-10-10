@@ -70,10 +70,21 @@ p.film-description {
 .filter-row {
 	padding: 1em;
 	border-bottom: thin solid #F2F0EF;
+	cursor: pointer;
 }
 
 span#selected-category {
 	text-transform: capitalize;
+}
+
+#categories-list-wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: grey;
+	z-index: 10;
+	width: 100%;
+	height: 100%;
 }
 
 #categories-list {
@@ -92,6 +103,7 @@ span#selected-category {
 	text-align: center;
 	padding: 0.6em;
 	font-size: 1.2em;
+	cursor: pointer;
 }
 
 

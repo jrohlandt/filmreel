@@ -6,7 +6,7 @@ window.addEventListener('load', function() {
 	var filmList = document.querySelector('ul#film-list');
 	var loadMoreButton = document.getElementById('load-more-button');
 	var filterCategoriesRow = document.getElementById('categories-row');
-	var filterCategoriesList = document.getElementById('categories-list');
+	var filterCategoriesList = document.getElementById('categories-list-wrapper');
 	var selectedCategorySpan = document.getElementById('selected-category');
 	var quickSearchField = document.getElementById('quick-search');
 
