@@ -54,6 +54,8 @@ window.addEventListener('load', function() {
 		clearFilmsList();
 		linearScrollUp(1000);
 		clearFilters();
+		// hide load more button, getFilms() will add it again if there's enough items
+		loadMoreButton.style = 'display: none;'; 
 		
 		if (searchTerm.length < 3) {
 			return;
