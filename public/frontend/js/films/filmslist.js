@@ -3,7 +3,7 @@ window.addEventListener('load', function() {
 	var getMoreOffset = 0;
 	var searchTerm = '';
 	var getFilmsStatus = 'complete'; // possibilities: complete, pending
-	var filmList = document.querySelector('ul#film-list');
+	var filmList = document.getElementById('film-list');
 	var loadMoreButton = document.getElementById('load-more-button');
 	var filterCategoriesRow = document.getElementById('categories-row');
 	var filterCategoriesList = document.getElementById('categories-list-wrapper');
@@ -96,6 +96,7 @@ window.addEventListener('load', function() {
 					createFilmItem(films[i]);
 				}
 			}
+			filmList.classList.remove('hide-list');
 			
 			getFilmsStatus = 'complete';
 		})
@@ -143,7 +144,7 @@ window.addEventListener('load', function() {
 			_csrf: CSRF_TOKEN,
 			category: document.getElementById('filter-by').dataset.filterByCategory,
 		};
-	
+		filmList.classList.add('hide-list');
 		getFilms(route, data);
 	}
 

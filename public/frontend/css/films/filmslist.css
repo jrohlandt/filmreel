@@ -1,3 +1,16 @@
+ul#film-list {
+	animation: fadeInFilmList 1s backwards;
+}
+
+@keyframes fadeInFilmList {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
 li.film-item-wrapper {
 	width: 100%;
 	height: 110px;
