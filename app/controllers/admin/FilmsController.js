@@ -16,7 +16,8 @@ module.exports = {
 			title: 'Films',
 			films: await filmModel.getAll(),
 			success: req.flash('success'),
-			categories: await categoryModel.getAll()
+			categories: await categoryModel.getAll(),
+			totalFilmCount: await filmModel.countAll()
 		});
 	},
 
@@ -84,7 +85,7 @@ module.exports = {
 			var data = { 
 				title: req.body.title, 
 				year: req.body.year,
-				poster_image: posterImagePath ? posterImagePath : path.join('images', 'posters', 'placeholder.png'),
+				poster_image: posterImagePath ? posterImagePath : path.join('/', 'images', 'posters', 'placeholder.png'),
 				duration: req.body.duration ? req.body.duration : 0,
 				description: req.body.description
 			};

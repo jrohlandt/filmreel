@@ -8,6 +8,11 @@ html, body, content {
 	width: 100%;
 }
 
+body {
+	font-family: "Source Sans Pro", "Helvitica Neue", Helvitica, Arial, sans-serif;
+	font-size: 0.8em;
+}
+
 li {
 	list-style: none;
 }
@@ -53,6 +58,7 @@ nav#left-nav a {
 	line-height: 50px;
 }
 
+
 @media screen and (min-width: 600px) {
 
 	#header-hamburger {
@@ -75,11 +81,12 @@ nav#left-nav a {
 		flex-grow: 1;
 	}
 }
-/* 
+
+
 @media screen and (min-width: 750px) {
 	.content {
 	  width: 700px; /* now we make it fixed width because in this case we do not want the container to grow any further */
-	  /* margin-left: auto;
+	  margin-left: auto;
 	  margin-right: auto;
 	}
-  } */ 
+  } 

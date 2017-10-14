@@ -1,20 +1,33 @@
 extends ../layout.pug
 
 block stylesheets
-	link(rel="stylesheet", href="/admin/css/films/list.css")
-	
+	link(rel="stylesheet", href="/admin/films/css/list.css")
+
 block content
 	h1 Films
 
 	if films
-		ul
-			each film in films
-				li
-					div
-						img(src= film.poster_image width='200')
-						a(href='/admin/films/'+film.id+'/edit' )= film.title
-						small= film.year
-						small= film.categories
+		table#films-table
+			thead
+				tr
+					th(scope='col') 
+					th(scope='col') Title 
+					th(scope='col') Year 
+					th(scope='col' class='hide-on-mobile') Categories 
+			tbody
+				each film in films 
+					tr
+						td 
+							img(src= film.poster_image width='50')
+						th(scope='row') 
+							a(href='/admin/films/'+film.id+'/edit' )= film.title
+						td= film.year 
+						td(class='hide-on-mobile')= film.categories
+			tfoot
+				tr
+				th(scope='row') Total films: 
+				td=	totalFilmCount
+
 
 block scripts
 	
