@@ -1,5 +1,8 @@
 extends ../layout.pug
 
+block stylesheets 
+	link(rel="stylesheet", href="/admin/films/css/form.css")
+
 block content
 	h1= title
 	form(method='POST' id="film-form" action='/admin/films/update' enctype='multipart/form-data')
@@ -31,7 +34,8 @@ block content
 		button(type='submit') Save 
 		button(type='button' onclick='deleteFilm(' + formData.id + ')') Delete
 
-		script(src='/admin/js/films/edit.js')
+block scripts
+	script(src='/admin/films/js/edit.js')
 			
 	
 			

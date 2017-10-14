@@ -5,8 +5,8 @@ head
 	meta(name='viewport' content='width=device-width,initial-scale=1')
 
 	title=(title ? title : 'WS')
-	link(rel='stylesheet', href='/admin/css/style.css')
-	link(rel="stylesheet", href="/admin/css/filmform.css")
+	link(rel='stylesheet', href='/admin/main/css/main.css')
+	block stylesheets
 body
 
 	header(class='box header')
@@ -36,5 +36,5 @@ body
 			.content
 				block content
 
-script(src='/admin/js/main.js')
+script(src='/admin/main/js/main.js')
 block scripts

@@ -1,5 +1,8 @@
 extends ../layout.pug
 
+block stylesheets 
+	link(rel="stylesheet", href="/admin/films/css/form.css")
+
 block content
 	h1= title
 	form(method='POST' action='/admin/films/store' enctype='multipart/form-data')
@@ -28,5 +31,6 @@ block content
 		label
 		button(type='submit') Create
 
-		script(src='/admin/js/films/edit.js')
+block scripts
+	script(src='/admin/films/js/edit.js')
 			
