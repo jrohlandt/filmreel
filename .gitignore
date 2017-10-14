@@ -1,6 +1,7 @@
 node_modules/*
 uploads/*
 public/images/posters/*
+!public/images/posters/placeholder.png
 .idea
 storage/logs/20*
 config/database.json
