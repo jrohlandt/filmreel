@@ -1,39 +1,40 @@
 doctype html
 html
 head
-	title=(title ? title : 'WS')
 	meta(http-equiv='Content-Type', content='text/html;charset=UTF-8')
 	meta(name='viewport' content='width=device-width,initial-scale=1')
+
+	title=(title ? title : 'WS')
 	link(rel='stylesheet', href='/admin/css/style.css')
 	link(rel="stylesheet", href="/admin/css/filmform.css")
 body
 
+	header(class='box header')
+		#header-hamburger xx
+		img(src='/filmreel_logo.png')
+
 	.container
-		header(class='box header')
-			img(src='/filmreel_logo.png')
-	ul
-		li(class=(title == 'Members' ? 'active' : ''))
-			a(href='/') Members
-		if !user
-			li
-				a(href='/auth/register') Register
-			li
-				a(href='/auth/login') Sign in
-		if user
-			li
-				a(href='/auth/logout') Sign out
-			li
-				a(href='/admin/films') Films
-
-	.notifications
-		if error
-			.alert-error #{error}
-		if validation_errors
+		nav#left-nav
 			ul
-				each verror in validation_errors
-					li.alert.danger #{verror.msg}
-		if success
-			.alert-success #{success}
+				li
+					a(href='/admin/films') Films
+				li 
+					a(href='/admin/films/create') Create Film
+				li
+					a(href='/auth/logout') Sign out
+		main 
+			.notifications
+				if error
+					.alert-error #{error}
+				if validation_errors
+					ul
+						each verror in validation_errors
+							li.alert.danger #{verror.msg}
+				if success
+					.alert-success #{success}
 
-	.content
-		block content
+			.content
+				block content
+
+script(src='/admin/js/main.js')
+block scripts

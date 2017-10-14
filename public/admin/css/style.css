@@ -1,28 +1,83 @@
-html, body, ul {
+html, body {
 	margin: 0;
 	padding: 0;
+}
+
+html, body, content {
+	height: 100%;
+	width: 100%;
 }
 
 li {
 	list-style: none;
 }
 
-.container {
+/* .container {
 	display: flex;
 	flex-wrap: wrap;
-}
+} */
+
 .header {
 	width: 100%;
 	background: #201e1e;
+	overflow: hidden;
 }
 
+#header-hamburger {
+	float: left;
+	padding: 20px;
+	color: white;
+}
 
+nav#left-nav {
+	width: 300px;
+	height: 100%;
+	position: absolute;
+	transform: translate(-300px, 0);
+	transition: transform 0.3s ease;
+	background: dodgerblue;
+}
 
+nav#left-nav.open {
+	transform: translate(0, 0);
+}
 
+nav#left-nav li {
+	height: 50px;
+	
+}
+
+nav#left-nav a {
+	padding: 20px;
+	background: greenyellow;
+}
+
+@media screen and (min-width: 600px) {
+
+	#header-hamburger {
+		display: none;
+	}
+	nav#left-nav {
+		position: relative;
+		min-height: 500px;
+		transform: translate(0, 0);
+	}
+
+	.container {
+		display: flex;
+		flex-flow: row nowrap;
+	}
+
+	main {
+		width: auto;
+		flex-grow: 1;
+	}
+}
+/* 
 @media screen and (min-width: 750px) {
 	.content {
 	  width: 700px; /* now we make it fixed width because in this case we do not want the container to grow any further */
-	  margin-left: auto;
+	  /* margin-left: auto;
 	  margin-right: auto;
 	}
-  }
+  } */ 
