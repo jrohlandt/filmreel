@@ -3,5 +3,6 @@ uploads/*
 public/images/posters/*
 !public/images/posters/placeholder.png
 .idea
+.vscode/*
 storage/logs/20*
-config/database.json
+config.json
