@@ -17,6 +17,7 @@ module.exports = (app) => {
 	
 
 	// Backend/Admin routes
+	app.get('/admin', ensureAuthenticated, wrap(require('./app/controllers/admin/DashboardController').index));
 	app.get('/admin/films', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').index));
 	app.get('/admin/films/create', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').create));
 	app.post('/admin/films/store', ensureAuthenticated, wrap(require('./app/controllers/admin/FilmsController').store));

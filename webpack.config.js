@@ -5,21 +5,18 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-const jsDestinationPath = path.resolve(__dirname, "public", "assets", "js");
+const jsDestinationPath = path.resolve(__dirname, 'public', 'assets', 'admin', 'js');
 module.exports = {
     entry: {
         polyfills: './polyfills.js',
         vendor: [
             'axios',
-            'draft-js',
-            'draftjs-to-html',
             'qs',
             'react',
             'react-dom',
-            'react-draft-wysiwyg',
             'react-router-dom',
         ],
-        app: './resources/assets/js/components/admin/app.js',
+        app: './resources/assets/admin/js/app.js',
 
     },
     plugins: [
@@ -29,15 +26,14 @@ module.exports = {
         //}}),
         //new BundleAnalyzerPlugin(),
         new CleanWebpackPlugin([jsDestinationPath]),
-        //new webpack.optimize.DedupePlugin(),
         new HtmlWebpackPlugin({
             title: 'Output Management',
             filename: path.resolve(__dirname, 'resources', 'views', 'admin') + '/index.pug',
-            template: '!!ejs-loader!./resources/assets/templates/admin/layout.ejs',
+            template: '!!ejs-loader!./resources/assets/templates/admin/index.ejs',
             inject: false,
         }),
         new webpack.NamedModulesPlugin(),
-        //new UglifyJSPlugin({ breaks stuff
+        //new UglifyJSPlugin({
         //    cache: true,
         //    parallel: true,
         //    sourceMap: true
@@ -58,10 +54,8 @@ module.exports = {
     },
     output: {
         path: jsDestinationPath,
+        // filename: '[name].js'
         filename: '[name].[chunkhash].js',
-        //chunkFilename: '[name].[chunkhash].bundle.js',
-        //filename: '[name].bundle.js',
-        //chunkFilename: '[name].bundle.js',
     },
     module: {
         rules: [
