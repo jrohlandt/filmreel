@@ -1,0 +1,19 @@
+{
+    "database": {
+      "username": "homestead",
+      "password": "secret",
+      "dbname": "node_mysql",
+      "host": "127.0.0.1",
+      "dialect": "mysql",
+      "port": 3306
+    },
+    "smtpConfig": {
+        "host": "smtp.mailgun.org",
+        "port": 465,
+        "secure": true,
+        "auth": {
+            "user": "postmaster@sandboxd37c679dad6b420eb248529fca01c861.mailgun.org",
+            "pass": "6873b31348855b7ed6e9b893a1989357"
+        }
+    }
+  }
