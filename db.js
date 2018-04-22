@@ -1,6 +1,6 @@
 var mysql = require('mysql')
 // var async = require('async')
-var config = require('./config/database.json').production
+var config = require('./config').database
 
 // var PRODUCTION_DB = 'app_prod_database'
 // var TEST_DB = 'app_test_database'
@@ -22,7 +22,7 @@ exports.connect = function (mode, done) {
     host: config.host,
     user: config.username,
     password: config.password,
-    database: config.database
+    database: config.dbname
   })
 
   state.mode = mode

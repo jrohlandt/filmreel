@@ -24,7 +24,7 @@ global.appRoot = path.resolve(__dirname);
 */
 
 // Connect to MySQL on start
-db.connect(db.MODE_PRODUCTION, function (err) {
+db.connect('none', function (err) {
 	if (err) {
 		console.log('Unable to connect to MySQL.');
 		process.exit(1);
@@ -87,14 +87,14 @@ db.connect(db.MODE_PRODUCTION, function (err) {
     */
 
     //
-    var dbConfig = require('./config/database').production
+    var dbConfig = require('./config').database;
 
     var sessionStoreOptions = {
       host: dbConfig.host,
       port: dbConfig.port,
       user: dbConfig.username,
       password: dbConfig.password,
-      database: dbConfig.database,
+      database: dbConfig.dbname,
       checkExpirationInterval: 900000, // How frequently expired sessions will be cleared; milliseconds.
       expiration: 86400000, // The maximum age of a valid session; milliseconds.
       createDatabaseTable: true, // Whether or not to create the sessions database table, if one does not already exist.
@@ -200,21 +200,21 @@ db.connect(db.MODE_PRODUCTION, function (err) {
       var err = new Error('Not Found')
       err.status = 404
       next(err)
-    })
+    });
 
     // error handler
     app.use(function (err, req, res, next) {
 
-		errorLogger.logError(err); // todo use async write functions in error logger
+      errorLogger.logError(err); // todo use async write functions in error logger
 
-      	// set locals, only providing error in development
-		res.locals.message = 'Oops something went wrong...';
-		res.locals.error = req.app.get('env') === 'development' ? err : {};
-		
-		// render the error page
-		res.status(err.status || 500)
-		res.render('error')
-    })
+          // set locals, only providing error in development
+      res.locals.message = 'Oops something went wrong...';
+      res.locals.error = req.app.get('env') === 'development' ? err : {};
+      
+      // render the error page
+      res.status(err.status || 500)
+      res.render('error')
+    });
 
     module.exports = app
   }
