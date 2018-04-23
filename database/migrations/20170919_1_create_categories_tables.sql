@@ -4,7 +4,7 @@ CREATE TABLE `categories` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `category_film` (
   `category_id` int(10) unsigned NOT NULL,
