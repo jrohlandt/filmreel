@@ -60,6 +60,7 @@ exports.find = function (filmId) {
 		db.get().query(sql, [filmId], function (error, result) {
 			if (error) {
 				reject(error);
+				// todo return function here, check all promises in this project
 			}
 
 			if (result[0] === undefined) {
